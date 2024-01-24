@@ -35,6 +35,7 @@
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
+    "husky": "^8.0.3",
     "prettier": "^3.2.4",
     "prop-types": "^15.8.1",
     "sass": "^1.70.0",
