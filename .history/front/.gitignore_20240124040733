@@ -16,9 +16,8 @@ dist-ssr
 .vscode/*
 !.vscode/extensions.json
 .idea
-.history
+.history/*
 .next
-.env.local
 .DS_Store
 *.suo
 *.ntvs*
