@@ -18,7 +18,6 @@ dist-ssr
 .idea
 .history
 .next
-.env.local
 .DS_Store
 *.suo
 *.ntvs*
