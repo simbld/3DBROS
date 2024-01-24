@@ -1,12 +1,16 @@
 module.exports = {
   root: true,
-  env: { browser: true, es2020: true },
+  env: { browser: true, es2021: true },
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:react-hooks/recommended',
     'prettier',
   ],
+  parserOptions: {
+    ecmaVersion: 'latest',
+    sourceType: 'module',
+  },
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   parser: '@typescript-eslint/parser',
   plugins: ['react-refresh', '@typescript-eslint', 'prettier'],
@@ -15,6 +19,17 @@ module.exports = {
       'warn',
       { allowConstantExport: true },
     ],
+
+    'prettier/prettier': 'error',
+    'no-console': 'off',
+    'no-restricted-syntax': [
+      'error',
+      {
+        selector:
+          "CallExpression[callee.object.name='console'][callee.property.name!=/^(error|warn)$/]",
+        message:
+          'You can only call the error() and warn() functions from the console object',
+      },
+    ],
   },
-  'prettier/prettier': 'error',
 }
