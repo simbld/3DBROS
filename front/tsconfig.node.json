@@ -1,10 +1,20 @@
 {
   "compilerOptions": {
-    "composite": true,
+    "target": "ES2021",
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "strict": true,
+    "esModuleInterop": true,
     "skipLibCheck": true,
-    "module": "ESNext",
-    "moduleResolution": "bundler",
-    "allowSyntheticDefaultImports": true
+    "forceConsistentCasingInFileNames": true
   },
-  "include": ["vite.config.ts"]
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }
