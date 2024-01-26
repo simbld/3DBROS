@@ -4,7 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/main.js",
+    "start:dev": "nest start --watch",
+    "lint": "eslint --ext .ts src"
   },
   "keywords": [],
   "author": "",
@@ -34,6 +38,7 @@
     "nodemon": "^3.0.3",
     "prettier": "^3.2.4",
     "ts-jest": "^29.1.2",
-    "ts-node": "^10.9.2"
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
   }
 }
