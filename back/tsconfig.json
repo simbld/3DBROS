@@ -1,0 +1,72 @@
+{
+  "compilerOptions": {
+    /* Basic Options */
+    "module": "commonjs",
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "target": "es2021",
+    "sourceMap": true,
+    "outDir": "./dist",
+    /* Path mapping */
+    "baseUrl": "./",
+    "paths": {
+      "@config/*": [
+        "config/*"
+      ],
+      "@controllers/*": [
+        "controllers/*"
+      ],
+      "@models/*": [
+        "models/*"
+      ],
+      "@routes/*": [
+        "routes/*"
+      ],
+      "@services/*": [
+        "services/*"
+      ],
+      "@utils/*": [
+        "utils/*"
+      ],
+      "@middlewares/*": [
+        "middlewares/*"
+      ],
+      "@types/*": [
+        "types/*"
+      ],
+      "@tests/*": [
+        "tests/*"
+      ]
+    },
+    /* Libraries */
+    "lib": [
+      "es2021",
+      "dom"
+    ],
+    /* Type checking */
+    "typeRoots": [
+      "node_modules/@types",
+      "types"
+    ],
+    "incremental": true,
+    "types": [
+      "jest",
+      "node"
+    ]
+  },
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ],
+  "references": [
+    {
+      "path": "./tsconfig.build.json",
+      "composite": true
+    }
+  ]
+}
