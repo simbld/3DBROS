@@ -7,6 +7,7 @@ The front-end of this project is built using the following technologies:
 - React
 - TypeScript
 - Next.js
+- Axios
 - Jest et React Testing Library
 
 ## BACK
