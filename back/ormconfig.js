@@ -1,4 +1,5 @@
-require('dotenv').config()
+import dotenv from 'dotenv';
+dotenv.config();
 
 module.exports = {
   type: 'mysql',
@@ -13,4 +14,4 @@ module.exports = {
     migrationsDir: 'src/migration',
   },
   synchronize: true,
-}
+};
