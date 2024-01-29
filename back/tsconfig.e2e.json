@@ -6,7 +6,9 @@
     "composite": true
   },
   "include": [
-    "test/**/*.ts"
+    "test/**/*.ts",
+    "test/**/*.json",
+    "app.e2e-spec.ts"
   ],
   "exclude": [
     "node_modules"
