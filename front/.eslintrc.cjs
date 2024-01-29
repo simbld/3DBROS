@@ -4,16 +4,22 @@ module.exports = {
     es2021: true
   },
   extends: [
+    "eslint:all",
+    "plugin:react/all",
+    "plugin:@typescript-eslint/all",
+    "plugin:react-hooks/all",
     "eslint:recommended",
-    "plugin:@typescript-eslint/recommended",
     "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended",
     "plugin:react-hooks/recommended",
     "prettier"
   ],
   settings: {
     react: {
       version: "detect"
-    }
+    },
+    "react/jsx-uses-react": "off",
+    "react/react-in-jsx-scope": "off"
   },
   overrides: [
     {

@@ -1,6 +1,19 @@
 <!-- markdownlint-disable MD024 -->
+<!-- markdownlint-disable MD001 -->
 
 # hair-s-ball
+
+#### For start FRONTEND and BACKEND simultaneously
+
+```json
+"scripts": {
+    "dev": "concurrently \"npm run dev --prefix front\" \"npm run start:dev --prefix back\"",
+    "start": "concurrently \"npm run start --prefix front\" \"npm run start --prefix back\"",
+    "lint": "concurrently \"npm run lint --prefix front\" \"npm run lint --prefix back\"",
+    "test": "concurrently \"npm run test --prefix front\" \"npm run test --prefix back\"",
+    "build": "concurrently \"npm run build --prefix front\" \"npm run build --prefix back\""
+  },
+```
 
 ## FRONT
 
