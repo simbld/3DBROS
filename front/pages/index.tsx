@@ -1,7 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const Home: React.FC = () => {
-  return <div>Welcome to Next.js!</div>
-}
+  return <div>Welcome to Next.js!</div>;
+};
 
-export default Home
+export default Home;
