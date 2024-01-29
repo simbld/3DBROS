@@ -12,6 +12,12 @@
     /* Path mapping */
     "baseUrl": "./",
     "paths": {
+      "@/*": [
+        "src/*"
+      ],
+      "@/pages/*": [
+        "pages/*"
+      ],
       "@config/*": [
         "config/*"
       ],
@@ -57,16 +63,19 @@
     ]
   },
   "include": [
-    "src/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules",
-    "dist"
+    "src/**/*.ts",
+    "test/**/*.ts",
+    "back/test/**/*.ts",
+    "app.e2e-spec.ts"
   ],
   "references": [
     {
       "path": "./tsconfig.build.json",
       "composite": true
     }
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
   ]
 }
