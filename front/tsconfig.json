@@ -12,11 +12,10 @@
     "skipLibCheck": true,
     /* Bundler mode */
     "moduleResolution": "node",
-    "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     /* Linting */
     "strict": true,
     "noUnusedLocals": true,
@@ -25,8 +24,9 @@
     "allowJs": true,
     "incremental": true,
     "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
     /* Path mapping */
-    "baseUrl": ".",
+    "baseUrl": "./",
     "paths": {
       "@assets/*": [
         "assets/*"
@@ -54,6 +54,9 @@
       ],
       "@tests/*": [
         "tests/*"
+      ],
+      "@/pages/*": [
+        "front/pages/*"
       ]
     },
     /* Type checking */
@@ -69,15 +72,12 @@
   "include": [
     "next-env.d.ts",
     "src/**/*.ts",
-    "src/**/*.tsx"
+    "src/**/*.tsx",
+    "test/**/*.ts",
+    "**/*.ts",
+    "**/*.tsx"
   ],
   "exclude": [
     "node_modules"
   ],
-  "references": [
-    {
-      "path": "./tsconfig.node.json",
-      "composite": true
-    }
-  ]
 }

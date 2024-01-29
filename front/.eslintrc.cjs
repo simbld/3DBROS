@@ -1,35 +1,41 @@
 module.exports = {
-  root: true,
-  env: { browser: true, es2021: true },
+  env: {
+    browser: true,
+    es2021: true
+  },
   extends: [
-    'eslint:recommended',
-    'plugin:@typescript-eslint/recommended',
-    'plugin:react-hooks/recommended',
-    'prettier',
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
+    "prettier"
   ],
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
+  settings: {
+    react: {
+      version: "detect"
+    }
   },
-  ignorePatterns: ['dist', '.eslintrc.cjs'],
-  parser: '@typescript-eslint/parser',
-  plugins: ['react-refresh', '@typescript-eslint', 'prettier'],
-  rules: {
-    'react-refresh/only-export-components': [
-      'warn',
-      { allowConstantExport: true },
-    ],
-
-    'prettier/prettier': 'error',
-    'no-console': 'off',
-    'no-restricted-syntax': [
-      'error',
-      {
-        selector:
-          "CallExpression[callee.object.name='console'][callee.property.name!=/^(error|warn)$/]",
-        message:
-          'You can only call the error() and warn() functions from the console object',
+  overrides: [
+    {
+      env: {
+        node: true
       },
-    ],
+      files: [".eslintrc.{js,cjs}"],
+      parserOptions: {
+        sourceType: "script"
+      }
+    }
+  ],
+  parser: "@typescript-eslint/parser",
+  parserOptions: {
+    ecmaVersion: "latest",
+    sourceType: "module"
   },
-}
+  plugins: ["@typescript-eslint", "react"],
+  rules: {
+    indent: ["error", 2],
+    "linebreak-style": ["error", "unix"],
+    quotes: ["error", "double"],
+    semi: ["error", "always"]
+  }
+};
