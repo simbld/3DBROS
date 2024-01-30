@@ -1,7 +1,8 @@
 /**
- * Add the following to your jest.config.ts:
- * testEnvironment: "jsdom".
- * This is because Next.js uses jsdom as the test environment.
+ * @file Cette suite de tests vérifie le rendu correct du composant Home.
+ *
+ * @see https://testing-library.com/docs/react-testing-library/intro
+ * @see https://jestjs.io/docs/configuration#testenvironment-string
  *
  * @jest-environment jsdom
  */
