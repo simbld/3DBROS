@@ -19,6 +19,7 @@ dist-ssr
 .history
 .next
 .env.local
+.env.docker
 .DS_Store
 *.suo
 *.ntvs*
