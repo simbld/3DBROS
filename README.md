@@ -1,6 +1,60 @@
 <!-- markdownlint-disable MD024 -->
 <!-- markdownlint-disable MD001 -->
 
+#### Docker Configuration
+
+This project is fully containerized with Docker, allowing for consistent development and deployment environments. The Docker setup includes services for both the frontend (Next.js) and backend (Nest.js), as well as MongoDB and PostgreSQL databases.
+
+### Services in Docker Compose
+
+# Next.js (Frontend) : A React-based frontend framework configured to run in a dedicated Docker container
+
+# Nest.js (Backend) : A progressive Node.js framework for building server-side applications, running in its own container
+
+# MongoDB : A NoSQL database used for storing non-relational data, running in a separate Docker container
+
+# PostgreSQL : A powerful, open-source relational database system, running in another Docker container
+
+### Running the Application with Docker
+
+To start all services simultaneously, simply use Docker Compose from the root of the project:
+
+```bash
+docker-compose up -d
+
+```
+
+This command will build (if necessary) and start all the containers defined in the
+
+docker-compose.yml file. The "-d"
+
+flag runs the containers in detached mode, leaving the terminal free for other commands.
+
+### Accessing the Services
+
+## The Next.js frontend is accessible at <http://localhost:3001> (or the port mapped in your docker-compose.yml)
+
+## The Nest.js backend can be accessed at <http://localhost:4001> (or the mapped port)
+
+## MongoDB is available on the default port 27018 (as mapped in docker-compose.yml)
+
+## PostgreSQL database is accessible on port 5433 (or the port you have configured)
+
+### Stopping the Services
+
+To stop all running services, use the following command:
+
+```bash
+docker-compose down
+
+```
+
+This command stops and removes the containers, networks, and volumes created by
+
+```bash
+docker-compose up
+```
+
 # hair-s-ball
 
 #### For start FRONTEND and BACKEND simultaneously
