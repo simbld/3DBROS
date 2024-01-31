@@ -1,7 +1,7 @@
 <!-- markdownlint-disable MD024 -->
 <!-- markdownlint-disable MD001 -->
 
-### Docker Configuration
+# Docker Configuration
 
 This project is fully containerized with Docker, allowing for consistent development and deployment environments. The Docker setup includes services for both the frontend (Next.js) and backend (Nest.js), as well as MongoDB and PostgreSQL databases.
 
@@ -14,8 +14,6 @@ Nest.js (Backend) : A progressive Node.js framework for building server-side app
 MongoDB : A NoSQL database used for storing non-relational data, running in a separate Docker container
 
 PostgreSQL : A powerful, open-source relational database system, running in another Docker container
-
-> > > > > > > 13fd14a810b4652519d515a4cba0a7c96b8bbde9
 
 ### Running the Application with Docker
 
@@ -57,7 +55,7 @@ This command stops and removes the containers, networks, and volumes created by
 docker-compose up
 ```
 
-# hair-s-ball
+# hair-s-ball-app
 
 ### For start FRONTEND and BACKEND simultaneously
 
