@@ -1,19 +1,21 @@
 <!-- markdownlint-disable MD024 -->
 <!-- markdownlint-disable MD001 -->
 
-#### Docker Configuration
+### Docker Configuration
 
 This project is fully containerized with Docker, allowing for consistent development and deployment environments. The Docker setup includes services for both the frontend (Next.js) and backend (Nest.js), as well as MongoDB and PostgreSQL databases.
 
 ### Services in Docker Compose
 
-# Next.js (Frontend) : A React-based frontend framework configured to run in a dedicated Docker container
+Next.js (Frontend) : A React-based frontend framework configured to run in a dedicated Docker container
 
-# Nest.js (Backend) : A progressive Node.js framework for building server-side applications, running in its own container
+Nest.js (Backend) : A progressive Node.js framework for building server-side applications, running in its own container
 
-# MongoDB : A NoSQL database used for storing non-relational data, running in a separate Docker container
+MongoDB : A NoSQL database used for storing non-relational data, running in a separate Docker container
 
-# PostgreSQL : A powerful, open-source relational database system, running in another Docker container
+PostgreSQL : A powerful, open-source relational database system, running in another Docker container
+
+> > > > > > > 13fd14a810b4652519d515a4cba0a7c96b8bbde9
 
 ### Running the Application with Docker
 
@@ -32,13 +34,13 @@ flag runs the containers in detached mode, leaving the terminal free for other c
 
 ### Accessing the Services
 
-## The Next.js frontend is accessible at <http://localhost:3001> (or the port mapped in your docker-compose.yml)
+The Next.js frontend is accessible at <http://localhost:3001> (or the port mapped in your docker-compose.yml)
 
-## The Nest.js backend can be accessed at <http://localhost:4001> (or the mapped port)
+The Nest.js backend can be accessed at <http://localhost:4001> (or the mapped port)
 
-## MongoDB is available on the default port 27018 (as mapped in docker-compose.yml)
+MongoDB is available on the default port 27018 (as mapped in docker-compose.yml)
 
-## PostgreSQL database is accessible on port 5433 (or the port you have configured)
+PostgreSQL database is accessible on port 5433 (or the port you have configured)
 
 ### Stopping the Services
 
@@ -57,7 +59,7 @@ docker-compose up
 
 # hair-s-ball
 
-#### For start FRONTEND and BACKEND simultaneously
+### For start FRONTEND and BACKEND simultaneously
 
 ```json
 "scripts": {

@@ -1,5 +1,5 @@
 /**
- * @file Cette suite de tests vérifie le rendu correct du composant Home.
+ * @file This test suite verifies the correct rendering of the Home component.
  *
  * @see https://testing-library.com/docs/react-testing-library/intro
  * @see https://jestjs.io/docs/configuration#testenvironment-string
