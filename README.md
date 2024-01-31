@@ -15,6 +15,8 @@ MongoDB : A NoSQL database used for storing non-relational data, running in a se
 
 PostgreSQL : A powerful, open-source relational database system, running in another Docker container
 
+> > > > > > > 13fd14a810b4652519d515a4cba0a7c96b8bbde9
+
 ### Running the Application with Docker
 
 To start all services simultaneously, simply use Docker Compose from the root of the project:
