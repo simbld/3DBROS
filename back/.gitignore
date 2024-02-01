@@ -18,6 +18,7 @@ dist-ssr
 .idea
 .history/*
 .next
+.env
 .env.local
 .DS_Store
 *.suo

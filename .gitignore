@@ -18,6 +18,7 @@ dist-ssr
 .idea
 .history
 .next
+.env
 .env.local
 .env.docker
 .DS_Store
