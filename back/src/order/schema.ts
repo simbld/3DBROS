@@ -1,3 +1,14 @@
+/**
+ * @module Order/SchemaFactory
+ *
+ * @property {string} customer - Customer name.
+ * @property {number} price - Order price.
+ * @property {string} address - Order address.
+ * @property {Date} createdAt - Order creation date with timestamp.
+ * @property {Date} updatedAt - Order update date with timestamp.
+ *
+ */
+
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { HydratedDocument } from "mongoose";
 
@@ -13,6 +24,7 @@ export class Order {
   address: string;
 }
 
+// Mongoose schema
 export const OrderSchema = SchemaFactory.createForClass(Order);
 
 // types
