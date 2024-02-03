@@ -2,7 +2,7 @@ import { Module } from "@nestjs/common";
 import { OrderService } from "./order.service";
 import { OrderResolver } from "./order.resolver";
 import { MongooseModule } from "@nestjs/mongoose";
-import { OrderSchema, Order } from "./schema";
+import { OrderSchema, Order } from "./entities/order.schema";
 
 @Module({
   imports: [
