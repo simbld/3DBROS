@@ -7,7 +7,8 @@
   },
   "include": [
     "src/**/*.ts",
-    "src/**/*.tsx"
+    "src/**/*.tsx",
+    "src/order/order.schema.ts"
   ],
   "exclude": [
     "node_modules",
