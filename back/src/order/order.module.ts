@@ -6,6 +6,7 @@ import { OrderSchema, Order } from "./entities/order.schema";
 
 @Module({
   imports: [
+    // Import the MongooseModule and the OrderSchema, and add them to the imports array.
     MongooseModule.forFeature([{ schema: OrderSchema, name: Order.name }]),
   ],
   providers: [OrderResolver, OrderService],

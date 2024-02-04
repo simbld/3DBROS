@@ -12,7 +12,7 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { HydratedDocument } from "mongoose";
 
-@Schema({ timestamps: true })
+@Schema({ timestamps: true }) // Automatically add `createdAt` and `updatedAt` fields to the schema.
 export class Order {
   @Prop({ required: true })
   customer: string;
