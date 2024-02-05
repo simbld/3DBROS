@@ -6,6 +6,8 @@
  * @property {string} address - Order address.
  * @property {Date} createdAt - Order creation date with timestamp.
  * @property {Date} updatedAt - Order update date with timestamp.
+ * @typedef {OrderDocument} - Mongoose Document with `Order` type.
+ * @returns {OrderSchema} - Mongoose schema for the `Order` entity.
  *
  */
 
