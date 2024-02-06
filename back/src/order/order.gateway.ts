@@ -1,3 +1,15 @@
+/**
+ * The OrderGateway class is a WebSocketGateway that listens for connections and disconnections.
+ * It also has a notify method that emits events to all connected clients.
+ * The notify method is used in the OrderService to notify clients about order-related events.
+ *
+ * @class OrderGateway
+ * @constructor
+ * @property {Server} server - The WebSocket server.
+ * @method notify - Emits an event to all connected clients.
+ *
+ */
+
 import {
   OnGatewayConnection,
   OnGatewayDisconnect,
