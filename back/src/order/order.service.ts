@@ -10,15 +10,6 @@
  * @constructor
  * @property {Model<Order>} orderModel - Mongoose model for the `Order` entity.
  * @property {OrderGateway} orderGateway - Gateway for order-related events.
- * @method getAll() - Retrieve all orders from the database.
- * @method create - Create a new order in the database.
- * @method findOne - Retrieve a single order from the database by its ID.
- * @method update - Update an existing order in the database.
- * @method remove - Remove an existing order from the database.
- * @method notify - Notify the gateway of an order-related event.
- * @returns {Promise<Order[]>} - A promise that resolves to an array of orders.
- * @returns {Promise<Order>} - A promise that resolves to the newly created order.
- * @returns {Promise<Order | null>} - A promise that resolves to the fetched, updated, or deleted order, or null if not found.
  *
  */
 
@@ -53,14 +44,14 @@ export class OrderService {
     return this.orderModel.findById(id);
   }
 
-  async update(id: string, orderData: Order): Promise<Order | null> {
+  async update(id: string, orderData: any): Promise<Order | null> {
     const updatedOrder = await this.orderModel.findByIdAndUpdate(
       id,
       orderData,
       { new: true },
     );
-    await this.orderGateway.notify("order-updated", updatedOrder);
-    return this.orderModel.findByIdAndUpdate(id, orderData, { new: true });
+    this.orderGateway.notify("order-updated", updatedOrder);
+    return updatedOrder;
   }
 
   async remove(id: string): Promise<Order | null> {
