@@ -11,9 +11,9 @@
  */
 
 import { Pool } from "pg";
-import dotenv from "dotenv";
+import * as dotenv from "dotenv";
 
-dotenv.config({ path: ".env.local" });
+dotenv.config({ path: "../.env" });
 
 const pool = new Pool({
   connectionString: process.env.PG_URL,
