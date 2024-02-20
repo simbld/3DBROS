@@ -1,6 +1,7 @@
 <!-- markdownlint-disable MD024 -->
 <!-- markdownlint-disable MD001 -->
-<img width="100" height="100" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" /><img width="100" height="100" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" /><img width="100" height="100" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original-wordmark.svg" /><img width="100" height="100" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-line.svg" /><img width="100" height="100" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nestjs/nestjs-plain.svg" /><img width="100" height="100" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" /><img width="100" height="100" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" /><img width="100" height="100" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/graphql/graphql-plain.svg" />
+<img width="50" height="50" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" /><img width="50" height="50" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" /><img width="50" height="50" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original-wordmark.svg" /><img width="50" height="50
+50" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-line.svg" /><img src="https://nestjs.com/img/logo-small.svg" width="50" alt="Nest Logo" /><img width="50" height="50" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" /><img width="50" height="50" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" /><img width="50" height="50" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/graphql/graphql-plain.svg" />
 
 # Docker Configuration
 
@@ -76,7 +77,7 @@ The front-end of this project is built using the following technologies:
 
 - React
 - TypeScript
-- Next.js
+- Nextjs
 - Axios
 - Jest and React Testing Library
 
@@ -84,7 +85,7 @@ The front-end of this project is built using the following technologies:
 
 The back-end of this project is built using the following technologies:
 
-- Nest.js
+- Nestjs
 - Jest
 
 ### FRONT-END
