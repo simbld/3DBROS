@@ -8,22 +8,22 @@
  */
 
 import { InputType, Int, Field } from "@nestjs/graphql";
+import { IsNotEmpty, IsNumber, IsString } from "class-validator";
 
 @InputType()
 export class CreateOrderInput {
   @Field()
   @IsNotEmpty()
+  @IsString()
   customer: string;
 
   @Field(() => Int)
+  @IsNotEmpty()
+  @IsNumber()
   price: number;
 
   @Field()
+  @IsNotEmpty()
+  @IsString()
   address: string;
-}
-function IsNotEmpty(): (
-  target: CreateOrderInput,
-  propertyKey: "customer",
-) => void {
-  throw new Error("Function not implemented.");
 }
