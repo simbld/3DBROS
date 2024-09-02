@@ -55,7 +55,7 @@ This command stops and removes the containers, networks, and volumes created by
 docker-compose up
 ```
 
-# hair-s-ball-app
+# 3DBROS-app
 
 ### For start FRONTEND and BACKEND simultaneously
 
