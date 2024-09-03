@@ -27,7 +27,7 @@ services:
   postgres:
     image: postgres
     ports:
-      - "5433:5433"
+      - "5434:5433"
     environment:
       POSTGRES_USER: ${PG_USER}
       POSTGRES_PASSWORD: ${PG_PASSWORD}
