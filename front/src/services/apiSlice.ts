@@ -40,10 +40,21 @@ const baseQueryWithReauth: BaseQueryFn<
 > = async (args, api, extraOptions) => {
   let result = await baseQuery(args, api, extraOptions);
 
-  // Si une erreur 401 (non autorisé) est rencontrée, on pourrait tenter de se reconnecter
-  if (result.error && result.error.status === 401) {
-    await api.dispatch(refreshToken() as any);
-    result = await baseQuery(args, api, extraOptions);
+  if (result.error) {
+    const status = result.error.status;
+
+    if (status === 401) {
+      await api.dispatch(refreshToken() as any);
+      result = await baseQuery(args, api, extraOptions);
+    } else if (status === 403) {
+      // Rediriger l'utilisateur ou afficher un message d'accès refusé
+      console.warn(
+        "Accès refusé, vous n'avez pas les permissions nécessaires.",
+      );
+    } else if (status === 500) {
+      // Afficher un message d'erreur pour le serveur
+      console.error("Erreur serveur, veuillez réessayer plus tard.");
+    }
   }
 
   return result;
@@ -90,6 +101,7 @@ export const apiSlice = createApi({
       { page: number; limit: number }
     >({
       query: ({ page, limit }) => `products?page=${page}&limit=${limit}`,
+      keepUnusedDataFor: 60,
     }),
     addProduct: builder.mutation<Product, Partial<Product>>({
       query: (body) => ({
