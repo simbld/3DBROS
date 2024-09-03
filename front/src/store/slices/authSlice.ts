@@ -29,7 +29,16 @@ const authSlice = createSlice({
 // Thunk pour rafraîchir le token
 export const refreshToken = () => async (dispatch: AppDispatch) => {
   try {
-    const response = await axios.post("/api/refresh-token", {});
+    const response = await axios.post(
+      "/api/refresh-token",
+      {},
+      {
+        withCredentials: true,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      },
+    );
 
     const newToken = response.data.token;
 
