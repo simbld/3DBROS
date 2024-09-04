@@ -22,7 +22,7 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     /* Path mapping */
-    "baseUrl": "./",
+    "baseUrl": ".",
     "paths": {
       /* Assets */
       "@assets/*": ["front/src/assets/*"],
@@ -31,8 +31,9 @@
       /* Configurations */
       "@configs/*": ["front/src/configs/*"],
       "@constants/*": ["front/src/constants/*"],
+      "@env/*": ["front/src/env/*"],
       "@themes/*": ["front/src/themes/*"],
-      "@translations/*": ["front/src/lang/*"],
+      "@lang/*": ["front/src/lang/*"],
 
       /* Components & Features */
       "@components/*": ["front/src/features/components/*"],
@@ -45,8 +46,11 @@
       "@hooks/*": ["front/src/hooks/*"],
 
       /* Services and Utilities */
+      "@reducers/*": ["src/features/reducers/*"],
       "@services/*": ["front/src/services/*"],
+      "@store/*": ["front/src/store/*"],
       "@utils/*": ["front/src/utils/*"],
+      "@helpers/*": ["front/src/helpers/*"],
 
       /* Interfaces & Models */
       "@interfaces/*": ["front/src/interfaces/*"],
@@ -58,18 +62,17 @@
       /* Api */
       "@api/*": ["front/src/api/*"],
 
-      /* Redux */
-      "@store/*": ["front/src/store/*"],
-
       /* GraphQL */
       "@graphql/*": ["front/src/graphql/*"],
 
       /* Validation & Testing */
+      "@coverage/*": ["front/coverage/*"],
       "@validations/*": ["front/src/validations/*"],
       "@tests/*": ["front/src/__tests__/*"],
       "@mocks/*": ["front/src/mocks/*"],
 
       /* Pages & Styles */
+      "@fonts/*": ["src/fonts/*"],
       "@global/*": ["front/src/global/*"],
       "@pages/*": ["front/src/pages/*"],
       "@styles/*": ["front/src/styles/*"]
