@@ -3,11 +3,7 @@
     /* Basic Options */
     "target": "ES2021",
     "useDefineForClassFields": true,
-    "lib": [
-      "ES2021",
-      "DOM",
-      "DOM.Iterable"
-    ],
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,
     /* Bundler mode */
@@ -15,7 +11,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "preserve",
+    "jsx": "react-jsx", // Utilisation de "react-jsx" pour Next.js
     /* Linting */
     "strict": true,
     "noUnusedLocals": true,
@@ -28,46 +24,60 @@
     /* Path mapping */
     "baseUrl": "./",
     "paths": {
-      "@assets/*": [
-        "assets/*"
-      ],
-      "@components/*": [
-        "components/*"
-      ],
-      "@configs/*": [
-        "configs/*"
-      ],
-      "@contexts/*": [
-        "contexts/*"
-      ],
-      "@hooks/*": [
-        "hooks/*"
-      ],
-      "@services/*": [
-        "services/*"
-      ],
-      "@utils/*": [
-        "utils/*"
-      ],
-      "@types/*": [
-        "types/*"
-      ],
-      "@tests/*": [
-        "tests/*"
-      ],
-      "@/pages/*": [
-        "front/pages/*"
-      ]
+      /* Assets */
+      "@assets/*": ["front/src/assets/*"],
+      "@public/*": ["front/public/*"],
+
+      /* Configurations */
+      "@configs/*": ["front/src/configs/*"],
+      "@constants/*": ["front/src/constants/*"],
+      "@themes/*": ["front/src/themes/*"],
+      "@translations/*": ["front/src/lang/*"],
+
+      /* Components & Features */
+      "@components/*": ["front/src/features/components/*"],
+      "@containers/*": ["front/src/containers/*"],
+      "@features/*": ["front/src/features/*"],
+      "@layouts/*": ["front/src/features/layouts/*"],
+
+      /* Contexts, Hooks, and State Management */
+      "@contexts/*": ["front/src/contexts/*"],
+      "@hooks/*": ["front/src/hooks/*"],
+
+      /* Services and Utilities */
+      "@services/*": ["front/src/services/*"],
+      "@utils/*": ["front/src/utils/*"],
+
+      /* Interfaces & Models */
+      "@interfaces/*": ["front/src/interfaces/*"],
+      "@models/*": ["front/src/models/*"],
+
+      /* Middleware */
+      "@middlewares/*": ["front/src/middlewares/*"],
+
+      /* Api */
+      "@api/*": ["front/src/api/*"],
+
+      /* Redux */
+      "@store/*": ["front/src/store/*"],
+
+      /* GraphQL */
+      "@graphql/*": ["front/src/graphql/*"],
+
+      /* Validation & Testing */
+      "@validations/*": ["front/src/validations/*"],
+      "@tests/*": ["front/src/__tests__/*"],
+      "@mocks/*": ["front/src/mocks/*"],
+
+      /* Pages & Styles */
+      "@global/*": ["front/src/global/*"],
+      "@pages/*": ["front/src/pages/*"],
+      "@styles/*": ["front/src/styles/*"]
     },
+
     /* Type checking */
-    "typeRoots": [
-      "node_modules/@types",
-      "types"
-    ],
-    "types": [
-      "jest",
-      "node"
-    ]
+    "typeRoots": ["node_modules/@types", "types"],
+    "types": ["jest", "node"]
   },
   "include": [
     "next-env.d.ts",
@@ -77,7 +87,10 @@
     "**/*.ts",
     "**/*.tsx"
   ],
-  "exclude": [
-    "node_modules"
+  "exclude": ["node_modules"],
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    }
   ]
 }
