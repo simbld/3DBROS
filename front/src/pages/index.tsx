@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import { useState } from "react";
-import type { Product } from "src/interfaces/apiType";
-import { useGetProductsQuery } from "src/services/productApiSlice";
+import type { Product } from "@interfaces/apiType";
+import { useGetProductsQuery } from "@services/productApiSlice";
 
 /**
  * Page d'accueil affichant des données récupérées via RTK Query.
