@@ -1,47 +1,61 @@
 module.exports = {
   env: {
     browser: true,
-    es2021: true
+    es2021: true,
   },
   extends: [
-    "eslint:all",
-    "plugin:react/all",
-    "plugin:@typescript-eslint/all",
-    "plugin:react-hooks/all",
+    "next/core-web-vitals",
     "eslint:recommended",
     "plugin:react/recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:react-hooks/recommended",
-    "prettier"
+    "prettier",
   ],
   settings: {
     react: {
-      version: "detect"
+      version: "detect",
     },
-    "react/jsx-uses-react": "off",
-    "react/react-in-jsx-scope": "off"
+    "react/jsx-uses-react": 0,
+    "react/react-in-jsx-scope": 0,
   },
   overrides: [
     {
+      files: ["*.json"],
+      rules: {
+        "prettier/prettier": 2,
+        "no-unused-expressions": 0,
+        "no-undef": 0,
+      },
+    },
+    {
       env: {
-        node: true
+        node: true,
       },
       files: [".eslintrc.{js,cjs}"],
       parserOptions: {
-        sourceType: "script"
-      }
-    }
+        sourceType: "script",
+      },
+    },
   ],
   parser: "@typescript-eslint/parser",
   parserOptions: {
     ecmaVersion: "latest",
-    sourceType: "module"
+    sourceType: "module",
   },
-  plugins: ["@typescript-eslint", "react"],
+  plugins: ["@typescript-eslint", "react", "prettier"],
   rules: {
-    indent: ["error", 2],
-    "linebreak-style": ["error", "unix"],
-    quotes: ["error", "double"],
-    semi: ["error", "always"]
-  }
+    indent: [2, 2],
+    "linebreak-style": [2, "unix"],
+    quotes: [2, "double"],
+    semi: [2, "always"],
+    "react/react-in-jsx-scope": 0,
+    "@typescript-eslint/ban-types": 0,
+    "@typescript-eslint/no-explicit-any": 0,
+    "prettier/prettier": [
+      2,
+      {
+        endOfLine: "auto",
+      },
+    ],
+  },
 };
