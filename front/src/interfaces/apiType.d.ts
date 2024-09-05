@@ -1,13 +1,36 @@
-export interface Post {
-  id: number;
-  title: string;
-  content: string;
+export interface CartItem {
+  productId: number;
+  name: string;
+  quantity: number;
+  price: number;
+}
+
+export interface Cart {
+  items: CartItem[];
+  totalQuantity: number;
+  totalPrice: number;
 }
 
 export interface Product {
   id: number;
   name: string;
   price: number;
+  description?: string;
+}
+
+export interface User {
+  id: number;
+  firstName: string;
+  lastName: string;
+  email: string;
+}
+
+export interface Order {
+  id: number;
+  productId: number;
+  quantity: number;
+  totalPrice: number;
+  status: string;
 }
 
 /**
