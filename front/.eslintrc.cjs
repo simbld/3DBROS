@@ -1,4 +1,5 @@
 module.exports = {
+  ignorePatterns: ["*.md"],
   env: {
     browser: true,
     es2021: true,
