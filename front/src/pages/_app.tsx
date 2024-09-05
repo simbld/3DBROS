@@ -1,7 +1,7 @@
-import { AppProps } from "next/app";
-import "../styles/_app.scss";
+import type { AppProps } from "next/app";
+import "@styles/_app.scss";
+import { store } from "@store/store";
 import { Provider } from "react-redux";
-import { store } from "../store/store";
 
 /**
  * Composant racine de l'application Next.js.
