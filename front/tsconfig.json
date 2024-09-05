@@ -1,99 +1,134 @@
 {
   "compilerOptions": {
-    /* Basic Options */
-    "target": "ES2021",
-    "useDefineForClassFields": true,
-    "lib": ["ESNext", "DOM", "DOM.Iterable"],
+    "target": "ES5",
+    "lib": [
+      "ESNext",
+      "DOM",
+      "DOM.Iterable"
+    ],
     "module": "ESNext",
     "skipLibCheck": true,
-    /* Bundler mode */
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx", // Utilisation de "react-jsx" pour Next.js
-    /* Linting */
+    "jsx": "preserve",
     "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true,
-    "allowJs": true,
-    "incremental": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    /* Path mapping */
-    "baseUrl": ".",
+    "baseUrl": "./",
     "paths": {
-      /* Assets */
-      "@assets/*": ["front/src/assets/*"],
-      "@public/*": ["front/public/*"],
-
-      /* Configurations */
-      "@configs/*": ["front/src/configs/*"],
-      "@constants/*": ["front/src/constants/*"],
-      "@env/*": ["front/src/env/*"],
-      "@themes/*": ["front/src/themes/*"],
-      "@lang/*": ["front/src/lang/*"],
-
-      /* Components & Features */
-      "@components/*": ["front/src/features/components/*"],
-      "@containers/*": ["front/src/containers/*"],
-      "@features/*": ["front/src/features/*"],
-      "@layouts/*": ["front/src/features/layouts/*"],
-
-      /* Contexts, Hooks, and State Management */
-      "@contexts/*": ["front/src/contexts/*"],
-      "@hooks/*": ["front/src/hooks/*"],
-
-      /* Services and Utilities */
-      "@reducers/*": ["src/features/reducers/*"],
-      "@services/*": ["front/src/services/*"],
-      "@store/*": ["front/src/store/*"],
-      "@utils/*": ["front/src/utils/*"],
-      "@helpers/*": ["front/src/helpers/*"],
-
-      /* Interfaces & Models */
-      "@interfaces/*": ["front/src/interfaces/*"],
-      "@models/*": ["front/src/models/*"],
-
-      /* Middleware */
-      "@middlewares/*": ["front/src/middlewares/*"],
-
-      /* Api */
-      "@api/*": ["front/src/api/*"],
-
-      /* GraphQL */
-      "@graphql/*": ["front/src/graphql/*"],
-
-      /* Validation & Testing */
-      "@coverage/*": ["front/coverage/*"],
-      "@validations/*": ["front/src/validations/*"],
-      "@tests/*": ["front/src/__tests__/*"],
-      "@mocks/*": ["front/src/mocks/*"],
-
-      /* Pages & Styles */
-      "@fonts/*": ["src/fonts/*"],
-      "@global/*": ["front/src/global/*"],
-      "@pages/*": ["front/src/pages/*"],
-      "@styles/*": ["front/src/styles/*"]
+      "@assets/*": [
+        "src/assets/*"
+      ],
+      "@public/*": [
+        "public/*"
+      ],
+      "@configs/*": [
+        "src/configs/*"
+      ],
+      "@constants/*": [
+        "src/constants/*"
+      ],
+      "@env/*": [
+        "src/env/*"
+      ],
+      "@themes/*": [
+        "src/themes/*"
+      ],
+      "@lang/*": [
+        "src/lang/*"
+      ],
+      "@components/*": [
+        "src/features/components/*"
+      ],
+      "@containers/*": [
+        "src/containers/*"
+      ],
+      "@features/*": [
+        "src/features/*"
+      ],
+      "@layouts/*": [
+        "src/features/layouts/*"
+      ],
+      "@contexts/*": [
+        "src/contexts/*"
+      ],
+      "@hooks/*": [
+        "src/hooks/*"
+      ],
+      "@reducers/*": [
+        "src/store/reducers/*"
+      ],
+      "@services/*": [
+        "src/services/*"
+      ],
+      "@store/*": [
+        "src/store/*"
+      ],
+      "@utils/*": [
+        "src/utils/*"
+      ],
+      "@helpers/*": [
+        "src/helpers/*"
+      ],
+      "@interfaces/*": [
+        "src/interfaces/*"
+      ],
+      "@models/*": [
+        "src/models/*"
+      ],
+      "@middlewares/*": [
+        "src/middlewares/*"
+      ],
+      "@api/*": [
+        "src/api/*"
+      ],
+      "@graphql/*": [
+        "src/graphql/*"
+      ],
+      "@coverage/*": [
+        "coverage/*"
+      ],
+      "@validations/*": [
+        "src/validations/*"
+      ],
+      "@tests/*": [
+        "__tests__/*"
+      ],
+      "@mocks/*": [
+        "mocks/*"
+      ],
+      "@fonts/*": [
+        "src/fonts/*"
+      ],
+      "@global/*": [
+        "src/global/*"
+      ],
+      "@pages/*": [
+        "src/pages/*"
+      ],
+      "@styles/*": [
+        "src/styles/*"
+      ]
     },
-
-    /* Type checking */
-    "typeRoots": ["node_modules/@types", "types"],
-    "types": ["jest", "node"]
+    "typeRoots": [
+      "node_modules/@types",
+      "types"
+    ],
+    "types": [
+      "jest",
+      "node"
+    ],
+    "allowJs": true,
+    "incremental": true
   },
   "include": [
     "next-env.d.ts",
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "test/**/*.ts",
     "**/*.ts",
     "**/*.tsx"
   ],
-  "exclude": ["node_modules"],
-  "references": [
-    {
-      "path": "./tsconfig.node.json"
-    }
+  "exclude": [
+    "node_modules"
   ]
 }
