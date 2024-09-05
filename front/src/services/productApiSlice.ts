@@ -4,9 +4,9 @@ import {
   type BaseQueryApi,
   type FetchArgs,
 } from "@reduxjs/toolkit/query/react";
-import type { ApiResponse, Product } from "../interfaces/apiType";
-import type { RootState } from "../store/store";
-import { refreshToken } from "../store/slices/authSlice";
+import type { ApiResponse, Product } from "@interfaces/apiType";
+import { refreshToken } from "@store/reducers/authSlice";
+import type { RootState } from "@store/store";
 
 /**
  * BaseQuery pour gérer les requêtes avec token d'authentification.
@@ -65,7 +65,7 @@ export const productApiSlice = createApi({
      */
     addProduct: builder.mutation<Product, Partial<Product>>({
       query: (body) => ({
-        url: `products`,
+        url: "products",
         method: "POST",
         body,
       }),
