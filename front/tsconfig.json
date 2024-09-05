@@ -1,134 +1,62 @@
 {
   "compilerOptions": {
-    "target": "ES5",
-    "lib": [
-      "ESNext",
-      "DOM",
-      "DOM.Iterable"
-    ],
-    "module": "ESNext",
+    "target": "ESNext",
+    "module": "CommonJS",
+    "jsx": "react-jsx",
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
     "skipLibCheck": true,
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "preserve",
     "strict": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "baseUrl": "./",
     "paths": {
-      "@assets/*": [
-        "src/assets/*"
-      ],
-      "@public/*": [
-        "public/*"
-      ],
-      "@configs/*": [
-        "src/configs/*"
-      ],
-      "@constants/*": [
-        "src/constants/*"
-      ],
-      "@env/*": [
-        "src/env/*"
-      ],
-      "@themes/*": [
-        "src/themes/*"
-      ],
-      "@lang/*": [
-        "src/lang/*"
-      ],
-      "@components/*": [
-        "src/features/components/*"
-      ],
-      "@containers/*": [
-        "src/containers/*"
-      ],
-      "@features/*": [
-        "src/features/*"
-      ],
-      "@layouts/*": [
-        "src/features/layouts/*"
-      ],
-      "@contexts/*": [
-        "src/contexts/*"
-      ],
-      "@hooks/*": [
-        "src/hooks/*"
-      ],
-      "@reducers/*": [
-        "src/store/reducers/*"
-      ],
-      "@services/*": [
-        "src/services/*"
-      ],
-      "@store/*": [
-        "src/store/*"
-      ],
-      "@utils/*": [
-        "src/utils/*"
-      ],
-      "@helpers/*": [
-        "src/helpers/*"
-      ],
-      "@interfaces/*": [
-        "src/interfaces/*"
-      ],
-      "@models/*": [
-        "src/models/*"
-      ],
-      "@middlewares/*": [
-        "src/middlewares/*"
-      ],
-      "@api/*": [
-        "src/api/*"
-      ],
-      "@graphql/*": [
-        "src/graphql/*"
-      ],
-      "@coverage/*": [
-        "coverage/*"
-      ],
-      "@validations/*": [
-        "src/validations/*"
-      ],
-      "@tests/*": [
-        "__tests__/*"
-      ],
-      "@mocks/*": [
-        "mocks/*"
-      ],
-      "@fonts/*": [
-        "src/fonts/*"
-      ],
-      "@global/*": [
-        "src/global/*"
-      ],
-      "@pages/*": [
-        "src/pages/*"
-      ],
-      "@styles/*": [
-        "src/styles/*"
-      ]
+      "@api/*": ["src/api/*"],
+      "@assets/*": ["src/assets/*"],
+      "@components/*": ["src/features/components/*"],
+      "@configs/*": ["src/configs/*"],
+      "@constants/*": ["src/constants/*"],
+      "@containers/*": ["src/containers/*"],
+      "@contexts/*": ["src/contexts/*"],
+      "@coverage/*": ["coverage/*"],
+      "@env/*": ["src/env/*"],
+      "@features/*": ["src/features/*"],
+      "@fonts/*": ["src/fonts/*"],
+      "@global/*": ["src/global/*"],
+      "@graphql/*": ["src/graphql/*"],
+      "@helpers/*": ["src/helpers/*"],
+      "@hooks/*": ["src/hooks/*"],
+      "@interfaces/*": ["src/interfaces/*"],
+      "@lang/*": ["src/lang/*"],
+      "@layouts/*": ["src/features/layouts/*"],
+      "@middlewares/*": ["src/middlewares/*"],
+      "@models/*": ["src/models/*"],
+      "@mocks/*": ["src/mocks/*"],
+      "@pages/*": ["src/pages/*"],
+      "@public/*": ["public/*"],
+      "@reducers/*": ["src/store/reducers/*"],
+      "@services/*": ["src/services/*"],
+      "@store/*": ["src/store/*"],
+      "@styles/*": ["src/styles/*"],
+      "@tests/*": ["src/__tests__/*"],
+      "@themes/*": ["src/themes/*"],
+      "@utils/*": ["src/utils/*"],
+      "@validations/*": ["src/validations/*"]
     },
-    "typeRoots": [
-      "node_modules/@types",
-      "types"
-    ],
-    "types": [
-      "jest",
-      "node"
-    ],
+    "typeRoots": ["node_modules/@types", "types"],
+    "types": ["jest", "node"],
     "allowJs": true,
     "incremental": true
   },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx"
+    "**/*.tsx",
+    "src/**/*.ts",
+    "src/**/*.tsx"
   ],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules", "dist", "build"] // Exclusion des dossiers inutiles
 }
