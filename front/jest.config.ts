@@ -59,7 +59,6 @@ const config: Config.InitialOptions = {
     "@templates/(.*)$": "<rootDir>/src/templates/$1",
     "@tests/(.*)$": "<rootDir>/src/__tests__/$1",
     "@themes/(.*)$": "<rootDir>/src/themes/$1",
-    "@types/(.*)$": "<rootDir>/src/types/$1",
     "@translations/(.*)$": "<rootDir>/src/translations/$1",
     "@utils/(.*)$": "<rootDir>/src/utils/$1",
     "@validations/(.*)$": "<rootDir>/src/validations/$1",

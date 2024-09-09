@@ -4,7 +4,7 @@ import path from "path";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-export default {
+const nextConfig = {
   webpack: (config) => {
     config.resolve.alias = {
       ...config.resolve.alias,
@@ -58,7 +58,6 @@ export default {
       "@templates": path.resolve(__dirname, "src/templates"),
       "@tests": path.resolve(__dirname, "src/__tests__"),
       "@themes": path.resolve(__dirname, "src/themes"),
-      "@types": path.resolve(__dirname, "src/types"),
       "@translations": path.resolve(__dirname, "src/translations"),
       "@utils": path.resolve(__dirname, "src/utils"),
       "@validations": path.resolve(__dirname, "src/validations"),
@@ -66,3 +65,4 @@ export default {
     return config;
   },
 };
+module.exports = nextConfig;

@@ -64,12 +64,11 @@
       "@templates/*": ["src/templates/*"],
       "@tests/*": ["src/__tests__/*"],
       "@themes/*": ["src/themes/*"],
-      "@types/*": ["src/types/*"],
       "@translations/*": ["src/translations/*"],
       "@utils/*": ["src/utils/*"],
       "@validations/*": ["src/validations/*"]
     },
-    "typeRoots": ["node_modules/@types", "types"],
+    "typeRoots": ["./node_modules/@types"],
     "types": ["jest", "node"],
     "allowJs": true,
     "incremental": true
@@ -81,5 +80,5 @@
     "src/**/*.ts",
     "src/**/*.tsx"
   ],
-  "exclude": ["node_modules", "dist", "build"] // Exclusion des dossiers inutiles
+  "exclude": ["node_modules", "dist", "build"]
 }
