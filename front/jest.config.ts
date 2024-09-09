@@ -1,15 +1,16 @@
 import type { Config } from "@jest/types";
 
 const config: Config.InitialOptions = {
-  preset: "ts-jest",
+  preset: "ts-jest/presets/default-esm",
   testEnvironment: "jsdom",
   roots: ["<rootDir>/src", "<rootDir>/src/__tests__"],
   transform: {
     "^.+\\.(ts|tsx)$": "ts-jest",
+    "^.+\\.(js|jsx)$": "babel-jest",
   },
   moduleNameMapper: {
-    "\\.(css|scss)$": "identity-obj-proxy", // Ignore les fichiers CSS/SCSS dans les tests
-    "@api/(.*)$": "<rootDir>/src/api/$1",
+    "redux-persist/es/storage": "redux-persist/lib/storage",
+    "\\.(css|scss)$": "identity-obj-proxy",
     "@assets/(.*)$": "<rootDir>/src/assets/$1",
     "@common/(.*)$": "<rootDir>/src/common/$1",
     "@components/(.*)$": "<rootDir>/src/features/components/$1",
@@ -63,10 +64,17 @@ const config: Config.InitialOptions = {
     "@utils/(.*)$": "<rootDir>/src/utils/$1",
     "@validations/(.*)$": "<rootDir>/src/validations/$1",
   },
+  globals: {
+    "ts-jest": {
+      tsconfig: "tsconfig.json",
+      isolatedModules: true,
+    },
+  },
   testRegex: "(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$", // Teste tous les fichiers `.test.tsx` ou `.spec.tsx`
   moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"], // Extensions supportées par Jest
   setupFilesAfterEnv: ["<rootDir>/jest.setup.ts"], // Fichier de configuration Jest
-  transformIgnorePatterns: ["/node_modules/(?!@testing-library)"], // Transforme tous les modules sauf ceux dans `node_modules` sauf @testing-library
+  transformIgnorePatterns: ["<rootDir>/node_modules/(?!redux-persist)"],
+  // Transforme tous les modules sauf ceux dans `node_modules` sauf @testing-library
   collectCoverageFrom: ["src/**/*.{ts,tsx}", "!src/**/*.d.ts"], // Collecte la couverture de code sur les fichiers `.ts` et `.tsx`
 };
 

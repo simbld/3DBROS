@@ -51,6 +51,7 @@ module.exports = {
     semi: [2, "always"],
     "react/react-in-jsx-scope": 0,
     "@typescript-eslint/ban-types": 0,
+    "react/prop-types": "off",
     "@typescript-eslint/no-explicit-any": 0,
     "prettier/prettier": [
       2,
