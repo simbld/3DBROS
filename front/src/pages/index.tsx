@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
-import type { Product } from "src/interfaces/apiType";
-import { useGetProductsQuery } from "src/services/apiSlice";
+import { useState } from "react";
+import type { Product } from "@interfaces/apiType";
+import { useGetProductsQuery } from "@services/productApiSlice";
 
 /**
  * Page d'accueil affichant des données récupérées via RTK Query.
@@ -8,8 +9,9 @@ import { useGetProductsQuery } from "src/services/apiSlice";
  */
 
 const Home: NextPage = (): JSX.Element => {
+  const [page, setPage] = useState(1);
   const { data, error, isLoading } = useGetProductsQuery({
-    page: 1,
+    page,
     limit: 10,
   });
   if (isLoading) return <div>Chargement...</div>;
@@ -23,6 +25,7 @@ const Home: NextPage = (): JSX.Element => {
           <li key={product.id}>{product.name}</li>
         ))}
       </ul>
+      <button onClick={() => setPage((prev) => prev + 1)}>Suivant</button>
     </div>
   );
 };

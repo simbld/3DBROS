@@ -1,13 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
-import type { AppDispatch } from "../store";
+import type { AppDispatch } from "@store/store";
 
-interface AuthState {
-  token: string | null;
-}
-
-const initialState: AuthState = {
-  token: null,
+const initialState = {
+  token: null as string | null,
 };
 
 const authSlice = createSlice({
@@ -26,10 +22,21 @@ const authSlice = createSlice({
   },
 });
 
+export const { setToken, clearToken, refreshTokenSuccess } = authSlice.actions;
+
 // Thunk pour rafraîchir le token
 export const refreshToken = () => async (dispatch: AppDispatch) => {
   try {
-    const response = await axios.post("/api/refresh-token", {});
+    const response = await axios.post(
+      "/api/refresh-token",
+      {},
+      {
+        withCredentials: true,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      },
+    );
 
     const newToken = response.data.token;
 
@@ -42,5 +49,4 @@ export const refreshToken = () => async (dispatch: AppDispatch) => {
   }
 };
 
-export const { setToken, clearToken, refreshTokenSuccess } = authSlice.actions;
-export default authSlice.reducer;
+export const authReducer = authSlice.reducer;

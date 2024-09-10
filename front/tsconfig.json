@@ -1,83 +1,85 @@
 {
   "compilerOptions": {
-    /* Basic Options */
-    "target": "ES2021",
-    "useDefineForClassFields": true,
-    "lib": [
-      "ES2021",
-      "DOM",
-      "DOM.Iterable"
-    ],
-    "module": "ESNext",
+    "target": "ESNext",
+    "module": "CommonJS",
+    "jsx": "react-jsx",
+    "lib": ["ESNext", "DOM"],
     "skipLibCheck": true,
-    /* Bundler mode */
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "preserve",
-    /* Linting */
     "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true,
-    "allowJs": true,
-    "incremental": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    /* Path mapping */
     "baseUrl": "./",
     "paths": {
-      "@assets/*": [
-        "assets/*"
-      ],
-      "@components/*": [
-        "components/*"
-      ],
-      "@configs/*": [
-        "configs/*"
-      ],
-      "@contexts/*": [
-        "contexts/*"
-      ],
-      "@hooks/*": [
-        "hooks/*"
-      ],
-      "@services/*": [
-        "services/*"
-      ],
-      "@utils/*": [
-        "utils/*"
-      ],
-      "@types/*": [
-        "types/*"
-      ],
-      "@tests/*": [
-        "tests/*"
-      ],
-      "@/pages/*": [
-        "front/pages/*"
-      ]
+      "@api/*": ["src/api/*"],
+      "@assets/*": ["src/assets/*"],
+      "@common/*": ["src/common/*"],
+      "@components/*": ["src/features/components/*"],
+      "@configs/*": ["src/configs/*"],
+      "@constants/*": ["src/constants/*"],
+      "@containers/*": ["src/containers/*"],
+      "@contexts/*": ["src/contexts/*"],
+      "@coverage/*": ["coverage/*"],
+      "@data/*": ["src/data/*"],
+      "@decorators/*": ["src/decorators/*"],
+      "@design/*": ["src/design/*"],
+      "@documents/*": ["src/documents/*"],
+      "@elements/*": ["src/elements/*"],
+      "@enums/*": ["src/enums/*"],
+      "@env/*": ["src/env/*"],
+      "@features/*": ["src/features/*"],
+      "@fonts/*": ["src/fonts/*"],
+      "@global/*": ["src/global/*"],
+      "@graphql/*": ["src/graphql/*"],
+      "@helpers/*": ["src/helpers/*"],
+      "@hooks/*": ["src/hooks/*"],
+      "@interfaces/*": ["src/interfaces/*"],
+      "@lang/*": ["src/lang/*"],
+      "@layouts/*": ["src/features/layouts/*"],
+      "@lib/*": ["src/lib/*"],
+      "@locales/*": ["src/locales/*"],
+      "@logger/*": ["src/logger/*"],
+      "@middlewares/*": ["src/middlewares/*"],
+      "@mocks/*": ["src/mocks/*"],
+      "@models/*": ["src/models/*"],
+      "@modules/*": ["src/modules/*"],
+      "@pages/*": ["src/pages/*"],
+      "@pipes/*": ["src/pipes/*"],
+      "@plugins/*": ["src/plugins/*"],
+      "@providers/*": ["src/providers/*"],
+      "@public/*": ["public/*"],
+      "@queries/*": ["src/queries/*"],
+      "@reducers/*": ["src/store/reducers/*"],
+      "@repositories/*": ["src/repositories/*"],
+      "@routes/*": ["src/routes/*"],
+      "@sagas/*": ["src/store/sagas/*"],
+      "@schemas/*": ["src/schemas/*"],
+      "@services/*": ["src/services/*"],
+      "@settings/*": ["src/settings/*"],
+      "@store/*": ["src/store/*"],
+      "@styles/*": ["src/styles/*"],
+      "@templates/*": ["src/templates/*"],
+      "@tests/*": ["src/__tests__/*"],
+      "@themes/*": ["src/themes/*"],
+      "@translations/*": ["src/translations/*"],
+      "@utils/*": ["src/utils/*"],
+      "@validations/*": ["src/validations/*"]
     },
-    /* Type checking */
-    "typeRoots": [
-      "node_modules/@types",
-      "types"
-    ],
-    "types": [
-      "jest",
-      "node"
-    ]
+    "typeRoots": ["./node_modules/@types"],
+    "types": ["jest", "node"],
+    "allowJs": true,
+    "incremental": true
   },
   "include": [
     "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
     "src/**/*.ts",
     "src/**/*.tsx",
-    "test/**/*.ts",
-    "**/*.ts",
-    "**/*.tsx"
+    "src/**/*.json"
   ],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules", "dist", "build"]
 }

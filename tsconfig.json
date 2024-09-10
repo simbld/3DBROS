@@ -8,15 +8,15 @@
     "forceConsistentCasingInFileNames": true
   },
   "include": [
+    "next-env.d.ts",
     "back/src/**/*.ts",
+    "back/src/**/*.tsx",
     "front/src/**/*.ts",
-    "src",
-    "apps",
-    "libs",
-    "test"
+    "front/src/**/*.tsx",
+    "src/**/*",
+    "apps/**/*",
+    "libs/**/*",
+    "test/**/*"
   ],
-  "exclude": [
-    "node_modules",
-    ".eslintrc.cjs"
-  ]
+  "exclude": ["node_modules", ".eslintrc.cjs"]
 }
