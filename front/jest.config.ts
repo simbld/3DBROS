@@ -73,7 +73,7 @@ const config: Config.InitialOptions = {
   testRegex: "(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$", // Teste tous les fichiers `.test.tsx` ou `.spec.tsx`
   moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"], // Extensions supportées par Jest
   setupFilesAfterEnv: ["<rootDir>/jest.setup.ts"], // Fichier de configuration Jest
-  transformIgnorePatterns: ["<rootDir>/node_modules/(?!redux-persist)"],
+  transformIgnorePatterns: ["<rootDir>/node_modules/"],
   // Transforme tous les modules sauf ceux dans `node_modules` sauf @testing-library
   collectCoverageFrom: ["src/**/*.{ts,tsx}", "!src/**/*.d.ts"], // Collecte la couverture de code sur les fichiers `.ts` et `.tsx`
 };
