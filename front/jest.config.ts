@@ -78,13 +78,7 @@ const jestConfig: JestConfigWithTsJest = {
     "@utils/(.*)$": "<rootDir>/src/utils/$1",
     "@validations/(.*)$": "<rootDir>/src/validations/$1",
   },
-  globals: {
-    "ts-jest": {
-      // Configuration de ts-jest
-      tsconfig: "tsconfig.json", // Utilisation de ton fichier tsconfig.json pour ts-jest
-      isolatedModules: true, // Améliore la vitesse des tests
-    },
-  },
+
   testRegex: "(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$", // Définition des fichiers de test (.test.tsx ou .spec.tsx)
   moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"], // Extensions reconnues par Jest
   setupFilesAfterEnv: ["<rootDir>/jest.setup.ts"], // Setup supplémentaire après l'environnement de test
