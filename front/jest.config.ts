@@ -12,10 +12,11 @@ const jestConfig: JestConfigWithTsJest = {
   roots: ["<rootDir>/src", "<rootDir>/src/__tests__"], // Les répertoires où Jest va chercher les fichiers à tester
   transform: {
     "^.+\\.(ts|tsx)$": [
-      "ts-jest",
+      // Transformation des fichiers TypeScript/TSX
+      "ts-jest", // Utilisation de ts-jest pour transformer les fichiers TypeScript/TSX
       {
         // On précise l'utilisation de `tsconfig` pour les tests
-        tsconfig: "tsconfig.json",
+        tsconfig: "tsconfig.json", // Utilisation de ton fichier tsconfig.json pour ts-jest
         isolatedModules: true, // Option pour améliorer les performances
       },
     ],
@@ -79,6 +80,7 @@ const jestConfig: JestConfigWithTsJest = {
   },
   globals: {
     "ts-jest": {
+      // Configuration de ts-jest
       tsconfig: "tsconfig.json", // Utilisation de ton fichier tsconfig.json pour ts-jest
       isolatedModules: true, // Améliore la vitesse des tests
     },
