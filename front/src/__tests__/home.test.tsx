@@ -1,21 +1,65 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
+import { useGetProductsQuery } from "@services/productApiSlice";
 import Home from "@pages/index";
 
-test("affiche le message de chargement", () => {
-  render(<Home />);
+jest.mock("@services/productApiSlice");
 
-  // Vérifie que le texte de chargement est affiché
-  expect(screen.getByText(/chargement/i)).toBeInTheDocument();
-});
+describe("Home", () => {
+  test("renders loading state", () => {
+    (useGetProductsQuery as jest.Mock).mockReturnValue({
+      data: undefined,
+      error: undefined,
+      isLoading: true,
+    });
 
-test("affiche les produits après le chargement", async () => {
-  render(<Home />);
+    render(<Home />);
 
-  // Utilise waitFor pour attendre que le texte des produits apparaisse après le chargement
-  await waitFor(() =>
-    expect(screen.getByText(/Produit 1/i)).toBeInTheDocument(),
-  );
+    expect(screen.getByText("Chargement...")).toBeInTheDocument();
+  });
 
-  // Vérifie que les produits sont affichés
-  expect(screen.getByText(/Produit 2/i)).toBeInTheDocument();
+  test("renders error state", () => {
+    (useGetProductsQuery as jest.Mock).mockReturnValue({
+      data: undefined,
+      error: "Erreur serveur",
+      isLoading: false,
+    });
+
+    render(<Home />);
+
+    expect(screen.getByText("Erreur serveur")).toBeInTheDocument();
+  });
+
+  test("renders data state", () => {
+    const mockData = {
+      data: {
+        data: [
+          { id: 1, name: "Product 1" },
+          { id: 2, name: "Product 2" },
+        ],
+      },
+      error: undefined,
+      isLoading: false,
+    };
+
+    (useGetProductsQuery as jest.Mock).mockReturnValue(mockData);
+
+    render(<Home />);
+
+    expect(screen.getByText("Produits")).toBeInTheDocument();
+    expect(screen.getByText("Product 1")).toBeInTheDocument();
+    expect(screen.getByText("Product 2")).toBeInTheDocument();
+  });
+
+  test("renders loading state", () => {
+    (useGetProductsQuery as jest.Mock).mockReturnValue({
+      data: undefined,
+      error: undefined,
+      isLoading: true,
+    });
+
+    render(<Home />);
+
+    const loadingElements = screen.getAllByText("Chargement...");
+    expect(loadingElements).toHaveLength(1);
+  });
 });
