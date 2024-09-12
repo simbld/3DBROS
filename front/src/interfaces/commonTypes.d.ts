@@ -1,18 +1,27 @@
-// custom hooks
-export interface UseImageLoaderReturnProps {
-  imageData: ImageData | null;
-  loading: boolean;
+// redux persist store
+export interface RootStateProps {
+  user: UserStateProps;
+  product: ProductStateProps;
+  cart: CartStateProps;
+  order: OrderStateProps;
+  auth: AuthStateProps;
 }
 
+// common
 export interface LoaderProps {
   barCount?: number;
   color?: string;
 }
 
+// hooks
+export interface UseImageLoaderReturnProps {
+  imageData: ImageData | null;
+  loading: boolean;
+}
+
 export interface UseDisplayReturnProps {
   display: string;
-  setDisplay: (value: string) => Promise<void>;
-  error: string | null;
+  updateDisplay: (newValue: string) => void;
   loading: boolean;
 }
 
@@ -25,21 +34,22 @@ export interface useLoadingReturnProps {
   loading: boolean;
   startLoading: () => void;
   endLoading: () => void;
-  error: ErrorState | null;
+  error?: ErrorState | null;
   handleError: (error: Error) => void;
+}
+
+export interface LoadingContextProps {
+  loading: boolean;
+  startLoading: () => void;
+  endLoading: () => void;
 }
 
 export interface UseFontLoaderReturnProps {
   fontLoaded: boolean;
   fontName: string;
-  fontUrl: string;
+  fontWeight?: number;
 }
 
-// redux persist store
-export interface RootStateProps {
-  user: UserStateProps;
-  product: ProductStateProps;
-  cart: CartStateProps;
-  order: OrderStateProps;
-  auth: AuthStateProps;
+export interface CartComponentProps {
+  cart: Cart | null;
 }

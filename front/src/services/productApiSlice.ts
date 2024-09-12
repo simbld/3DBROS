@@ -4,7 +4,7 @@ import {
   type BaseQueryApi,
   type FetchArgs,
 } from "@reduxjs/toolkit/query/react";
-import type { ApiResponse, Product } from "@interfaces/apiType";
+import type { ApiResponse } from "@interfaces/apiTypes";
 import { refreshToken } from "@store/reducers/authSlice";
 import type { RootState } from "@store/store";
 

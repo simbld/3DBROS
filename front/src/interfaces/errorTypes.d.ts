@@ -1,16 +1,20 @@
 // context providers
-export interface ErrorContextTypeProps {
-  error: Error | null;
-  setError: (error: Error | null) => void;
-  displayError: () => void;
-  clearError: () => void;
+export interface ErrorState {
+  message: string;
+  code: number;
 }
 
-export type ErrorState =
-  | CustomError
-  | FetchBaseQueryError
-  | SerializedError
-  | null;
+export interface UseErrorReturnProps {
+  triggerError: (error: ErrorState) => void;
+  clearError: () => void;
+  displayError: () => void;
+}
+
+export interface ErrorContextType {
+  error: ErrorState | null;
+  triggerError: (error: ErrorState) => void;
+  clearError: () => void;
+}
 
 export interface CustomError extends Error {
   statusCode?: number;
@@ -19,7 +23,9 @@ export interface CustomError extends Error {
 
 export interface FetchBaseQueryError {
   status: number;
-  data: unknown;
+  data?: {
+    message?: string;
+  };
 }
 
 export interface SerializedError {
@@ -28,20 +34,6 @@ export interface SerializedError {
   stack?: string;
 }
 
-export interface ErrorState {
+export interface ErrorMessageProps {
   message: string;
-  code: number;
-}
-
-export interface UseErrorReturnProps {
-  error: ErrorState;
-  setError: (error: ErrorState) => void;
-  displayError: () => void;
-  clearError: () => void;
-  triggerError: (errorMessage: string) => void;
-}
-
-export interface ErrorMessageReturnProps {
-  error: ErrorState | null;
-  clearError: () => void;
 }

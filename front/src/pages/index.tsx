@@ -1,34 +1,59 @@
 import type { NextPage } from "next";
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useGetProductsQuery } from "@services/productApiSlice";
+import Loader from "@common/loader";
+import ErrorMessage from "@common/errorMessage";
 
 /**
- * Composant avec gestion du chargement.
+ * Récupère les produits via RTK Query.
+ * @param {Object} param - Paramètres de la requête.
+ * @param {number} param.page - Le numéro de la page.
+ * @param {number} param.limit - Le nombre de produits par page.
+ * @returns {Object} Un objet contenant les produits, l'état de chargement et l'erreur éventuelle.
  */
 const Home: NextPage = (): React.JSX.Element => {
-  const [isLoading, setIsLoading] = useState(true);
+  const [page, setPage] = useState(1);
+  const { data, error, isLoading } = useGetProductsQuery({
+    page,
+    limit: 10,
+  });
 
-  useEffect(() => {
-    // Simule un délai de chargement plus court en mode test
-    const delay = process.env.NODE_ENV === "test" ? 100 : 1000;
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, delay);
-    return () => clearTimeout(timer);
-  }, []);
-
+  // Gestion de l'état de chargement
   if (isLoading) {
-    return <div>Chargement...</div>;
+    return (
+      <div>
+        <Loader />
+      </div>
+    );
   }
 
-  return (
-    <div>
-      <h1>Produits</h1>
-      <ul>
-        <li>Produit 1</li>
-        <li>Produit 2</li>
-      </ul>
-    </div>
-  );
+  // Gestion des erreurs
+  if (error) {
+    if ("status" in error && error.status === "FETCH_ERROR") {
+      return (
+        <ErrorMessage message="Impossible de se connecter au serveur. Vérifiez l'URL ou si le serveur est en cours d'exécution." />
+      );
+    }
+    return <ErrorMessage message="Erreur serveur" />;
+  }
+
+  // Si les données sont disponibles, on les affiche
+  if (data) {
+    return (
+      <div>
+        <h1>Produits</h1>
+        <ul>
+          {data?.data?.map((product: Product) => (
+            <li key={product.id}>{product.name}</li>
+          ))}
+        </ul>
+        <button onClick={() => setPage((prev) => prev + 1)}>Suivant</button>
+      </div>
+    );
+  }
+
+  // Retour par défaut si ni isLoading, ni error, ni data n'est présent
+  return <div>Aucune donnée disponible pour le moment.</div>;
 };
 
 export default Home;
