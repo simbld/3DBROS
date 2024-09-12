@@ -7,9 +7,14 @@ export const server = setupServer(
     return res(
       ctx.status(200),
       ctx.json({
-        items: [{ productId: 1, name: "Produit 1", quantity: 2 }],
-        totalQuantity: 2,
-        totalPrice: 50,
+        items: [
+          { productId: 1, name: "Produit 1", quantity: 1, price: 25 },
+          { productId: 2, name: "Produit 2", quantity: 2, price: 50 },
+          { productId: 3, name: "Produit 3", quantity: 0, price: 0 },
+          { productId: 4, name: "Produit 4", quantity: 1, price: 50 },
+        ],
+        totalQuantity: 4,
+        totalPrice: 125,
       }),
     );
   }),
