@@ -1,19 +1,29 @@
-import type { Config } from "@jest/types";
+import { type JestConfigWithTsJest, createDefaultPreset } from "ts-jest";
+
+const defaultPreset = createDefaultPreset();
 
 /**
  * @type {import('ts-jest').JestConfigWithTsJest}
  * **/
-const config: Config.InitialOptions = {
-  preset: "ts-jest/presets/default-esm",
-  testEnvironment: "jsdom",
-  roots: ["<rootDir>/src", "<rootDir>/src/__tests__"],
+const jestConfig: JestConfigWithTsJest = {
+  ...defaultPreset,
+  preset: "ts-jest/presets/default-esm", // Utilisation de ESM dans ts-jest
+  testEnvironment: "jsdom", // L'environnement de test simule un navigateur (important pour les tests React)
+  roots: ["<rootDir>/src", "<rootDir>/src/__tests__"], // Les répertoires où Jest va chercher les fichiers à tester
   transform: {
-    "^.+\\.(ts|tsx)$": "ts-jest",
-    "^.+\\.(js|jsx)$": "babel-jest",
+    "^.+\\.(ts|tsx)$": [
+      "ts-jest",
+      {
+        // On précise l'utilisation de `tsconfig` pour les tests
+        tsconfig: "tsconfig.json",
+        isolatedModules: true, // Option pour améliorer les performances
+      },
+    ],
   },
   moduleNameMapper: {
-    "redux-persist/es/storage": "redux-persist/lib/storage",
-    "\\.(css|scss)$": "identity-obj-proxy",
+    "redux-persist/es/storage": "redux-persist/lib/storage", // Mappage des modules entre ESM et CommonJS pour `redux-persist`
+    "\\.(css|scss)$": "identity-obj-proxy", // Gestion des fichiers CSS/SCSS dans les tests
+    // Mappage des chemins d'alias vers les répertoires correspondants
     "@assets/(.*)$": "<rootDir>/src/assets/$1",
     "@common/(.*)$": "<rootDir>/src/common/$1",
     "@components/(.*)$": "<rootDir>/src/features/components/$1",
@@ -69,16 +79,15 @@ const config: Config.InitialOptions = {
   },
   globals: {
     "ts-jest": {
-      tsconfig: "tsconfig.json",
-      isolatedModules: true,
+      tsconfig: "tsconfig.json", // Utilisation de ton fichier tsconfig.json pour ts-jest
+      isolatedModules: true, // Améliore la vitesse des tests
     },
   },
-  testRegex: "(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$", // Teste tous les fichiers `.test.tsx` ou `.spec.tsx`
-  moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"], // Extensions supportées par Jest
-  setupFilesAfterEnv: ["<rootDir>/jest.setup.ts"], // Fichier de configuration Jest
-  transformIgnorePatterns: ["<rootDir>/node_modules/"],
-  // Transforme tous les modules sauf ceux dans `node_modules` sauf @testing-library
-  collectCoverageFrom: ["src/**/*.{ts,tsx}", "!src/**/*.d.ts"], // Collecte la couverture de code sur les fichiers `.ts` et `.tsx`
+  testRegex: "(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$", // Définition des fichiers de test (.test.tsx ou .spec.tsx)
+  moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"], // Extensions reconnues par Jest
+  setupFilesAfterEnv: ["<rootDir>/jest.setup.ts"], // Setup supplémentaire après l'environnement de test
+  transformIgnorePatterns: ["<rootDir>/node_modules/"], // Ignorer la transformation des fichiers dans node_modules, sauf exceptions nécessaires
+  collectCoverageFrom: ["src/**/*.{ts,tsx}", "!src/**/*.d.ts"], // Collecte des statistiques de couverture de code uniquement sur les fichiers TypeScript/TSX
 };
 
-export default config;
+export default jestConfig;
