@@ -20,13 +20,17 @@ describe("Home", () => {
   test("renders error state", () => {
     (useGetProductsQuery as jest.Mock).mockReturnValue({
       data: undefined,
-      error: "Erreur serveur",
+      error: { status: "FETCH_ERROR" },
       isLoading: false,
     });
 
     render(<Home />);
 
-    expect(screen.getByText("Erreur serveur")).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        "Impossible de se connecter au serveur. Vérifiez l'URL ou si le serveur est en cours d'exécution.",
+      ),
+    ).toBeInTheDocument();
   });
 
   test("renders data state", () => {
