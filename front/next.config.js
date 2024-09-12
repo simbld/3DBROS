@@ -62,6 +62,13 @@ const nextConfig = {
       "@utils": path.resolve(__dirname, "src/utils"),
       "@validations": path.resolve(__dirname, "src/validations"),
     };
+
+    // Ajout de la gestion du polling pour Hot Module Replacement (HMR)
+    config.watchOptions = {
+      poll: 1000, // Vérifier les changements toutes les 1000ms (1 seconde)
+      aggregateTimeout: 300,
+    };
+
     return config;
   },
   experimental: {
