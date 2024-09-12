@@ -29,11 +29,12 @@ const Home: NextPage = (): React.JSX.Element => {
 
   // Gestion des erreurs
   if (error) {
-    return (
-      <div>
-        <ErrorMessage message="Erreur serveur" />
-      </div>
-    );
+    if ("status" in error && error.status === "FETCH_ERROR") {
+      return (
+        <ErrorMessage message="Impossible de se connecter au serveur. Vérifiez l'URL ou si le serveur est en cours d'exécution." />
+      );
+    }
+    return <ErrorMessage message="Erreur serveur" />;
   }
 
   // Si les données sont disponibles, on les affiche
