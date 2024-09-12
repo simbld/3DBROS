@@ -5,7 +5,7 @@ import type { Config } from "@jest/types";
  * **/
 const config: Config.InitialOptions = {
   preset: "ts-jest/presets/default-esm",
-  testEnvironment: "node",
+  testEnvironment: "jsdom",
   roots: ["<rootDir>/src", "<rootDir>/src/__tests__"],
   transform: {
     "^.+\\.(ts|tsx)$": "ts-jest",
