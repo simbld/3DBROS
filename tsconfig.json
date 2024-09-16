@@ -16,7 +16,8 @@
     "src/**/*",
     "apps/**/*",
     "libs/**/*",
-    "test/**/*"
+    "test/**/*",
+    "back/prisma/prisma.service.ts"
   ],
   "exclude": ["node_modules", ".eslintrc.cjs"]
 }
