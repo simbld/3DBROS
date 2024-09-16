@@ -11,13 +11,22 @@ const jestConfig: JestConfigWithTsJest = {
   testEnvironment: "jsdom", // L'environnement de test simule un navigateur (important pour les tests React)
   roots: ["<rootDir>/src", "<rootDir>/src/__tests__"], // Les répertoires où Jest va chercher les fichiers à tester
   transform: {
-    "^.+\\.(ts|tsx)$": [
-      // Transformation des fichiers TypeScript/TSX
-      "ts-jest", // Utilisation de ts-jest pour transformer les fichiers TypeScript/TSX
+    "^.+\\.(t|j)sx?$": [
+      "@swc/jest", // Utilisation de SWC pour transformer les fichiers TypeScript/TSX
       {
-        // On précise l'utilisation de `tsconfig` pour les tests
-        tsconfig: "tsconfig.json", // Utilisation de ton fichier tsconfig.json pour ts-jest
-        isolatedModules: true, // Option pour améliorer les performances
+        jsc: {
+          // Configuration de SWC
+          parser: {
+            syntax: "typescript",
+            tsx: true,
+          },
+          target: "es2020",
+          transform: {
+            react: {
+              runtime: "automatic",
+            },
+          },
+        },
       },
     ],
   },
