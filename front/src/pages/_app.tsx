@@ -15,11 +15,11 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <ErrorProvider>
-          <LoadingProvider>
+        <LoadingProvider>
+          <ErrorProvider>
             <Component {...pageProps} />
-          </LoadingProvider>
-        </ErrorProvider>
+          </ErrorProvider>
+        </LoadingProvider>
       </PersistGate>
     </Provider>
   );
