@@ -69,4 +69,10 @@ $ npx prisma migrate deploy
 
 # Reset Database
 $ npx prisma migrate reset
+
+# Backing up and deleting current migrations
+$ rm -rf prisma/migrations
+$ npx prisma migrate dev --name init
+$ npx prisma generate
+
 ```
