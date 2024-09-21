@@ -1,33 +1,29 @@
+import { Prisma } from "@prisma/client";
+
 /**
- * @module Order/SchemaFactory
- *
- * @property {string} customer - Customer name.
- * @property {number} price - Order price.
- * @property {string} address - Order address.
- * @property {Date} createdAt - Order creation date with timestamp.
- * @property {Date} updatedAt - Order update date with timestamp.
- * @typedef {OrderDocument} - Mongoose Document with `Order` type.
- * @returns {OrderSchema} - Mongoose schema for the `Order` entity.
- *
+ * Définition des types supplémentaires pour l'entité `Order`
  */
-
-import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { HydratedDocument } from "mongoose";
-
-@Schema({ timestamps: true }) // Automatically add `createdAt` and `updatedAt` fields to the schema.
-export class Order {
-  @Prop({ required: true })
-  customer: string;
-
-  @Prop({ required: true })
-  price: number;
-
-  @Prop({ required: true })
+// Assuming the correct type is `OrderModel` or you need to define it manually
+export type Order = {
+  id: number;
+  createdAt: Date;
+  updatedAt: Date;
+  customerId: number;
+  customerName: string;
   address: string;
-}
+  price: number;
+  products: CartItem[];
+  status: string;
+};
 
-// Mongoose schema
-export const OrderSchema = SchemaFactory.createForClass(Order);
+// Définition des éléments du panier
+export type CartItem = {
+  productId: number;
+  productName: string;
+  quantity: number;
+  price: number;
+};
 
-// types
-export type OrderDocument = HydratedDocument<Order>;
+// Exemple de types Prisma supplémentaires
+export type OrderCreateInput = Prisma.OrderCreateInput;
+export type OrderUpdateInput = Prisma.OrderUpdateInput;

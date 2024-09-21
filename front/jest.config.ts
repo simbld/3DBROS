@@ -11,12 +11,22 @@ const jestConfig: JestConfigWithTsJest = {
   testEnvironment: "jsdom", // L'environnement de test simule un navigateur (important pour les tests React)
   roots: ["<rootDir>/src", "<rootDir>/src/__tests__"], // Les répertoires où Jest va chercher les fichiers à tester
   transform: {
-    "^.+\\.(ts|tsx)$": [
-      "ts-jest",
+    "^.+\\.(t|j)sx?$": [
+      "@swc/jest", // Utilisation de SWC pour transformer les fichiers TypeScript/TSX
       {
-        // On précise l'utilisation de `tsconfig` pour les tests
-        tsconfig: "tsconfig.json",
-        isolatedModules: true, // Option pour améliorer les performances
+        jsc: {
+          // Configuration de SWC
+          parser: {
+            syntax: "typescript",
+            tsx: true,
+          },
+          target: "es2020",
+          transform: {
+            react: {
+              runtime: "automatic",
+            },
+          },
+        },
       },
     ],
   },
@@ -61,14 +71,14 @@ const jestConfig: JestConfigWithTsJest = {
     "@providers/(.*)$": "<rootDir>/src/providers/$1",
     "@public/(.*)$": "<rootDir>/public/$1",
     "@queries/(.*)$": "<rootDir>/src/queries/$1",
-    "@reducers/(.*)$": "<rootDir>/src/store/reducers/$1",
+    "@reducers/(.*)$": "<rootDir>/src/redux-store/reducers/$1",
     "@repositories/(.*)$": "<rootDir>/src/repositories/$1",
     "@routes/(.*)$": "<rootDir>/src/routes/$1",
     "@sagas/(.*)$": "<rootDir>/src/sagas/$1",
     "@schemas/(.*)$": "<rootDir>/src/schemas/$1",
     "@services/(.*)$": "<rootDir>/src/services/$1",
     "@settings/(.*)$": "<rootDir>/src/settings/$1",
-    "@store/(.*)$": "<rootDir>/src/store/$1",
+    "@redux-store/(.*)$": "<rootDir>/src/redux-store/$1",
     "@styles/(.*)$": "<rootDir>/src/styles/$1",
     "@templates/(.*)$": "<rootDir>/src/templates/$1",
     "@tests/(.*)$": "<rootDir>/src/__tests__/$1",
@@ -77,12 +87,7 @@ const jestConfig: JestConfigWithTsJest = {
     "@utils/(.*)$": "<rootDir>/src/utils/$1",
     "@validations/(.*)$": "<rootDir>/src/validations/$1",
   },
-  globals: {
-    "ts-jest": {
-      tsconfig: "tsconfig.json", // Utilisation de ton fichier tsconfig.json pour ts-jest
-      isolatedModules: true, // Améliore la vitesse des tests
-    },
-  },
+
   testRegex: "(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$", // Définition des fichiers de test (.test.tsx ou .spec.tsx)
   moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"], // Extensions reconnues par Jest
   setupFilesAfterEnv: ["<rootDir>/jest.setup.ts"], // Setup supplémentaire après l'environnement de test

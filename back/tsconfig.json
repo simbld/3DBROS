@@ -12,61 +12,40 @@
     /* Path mapping */
     "baseUrl": "./",
     "paths": {
-      "@/*": [
-        "src/*"
-      ],
-      "@/pages/*": [
-        "pages/*"
-      ],
-      "@config/*": [
-        "config/*"
-      ],
-      "@controllers/*": [
-        "controllers/*"
-      ],
-      "@models/*": [
-        "models/*"
-      ],
-      "@routes/*": [
-        "routes/*"
-      ],
-      "@services/*": [
-        "services/*"
-      ],
-      "@utils/*": [
-        "utils/*"
-      ],
-      "@middlewares/*": [
-        "middlewares/*"
-      ],
-      "@types/*": [
-        "types/*"
-      ],
-      "@tests/*": [
-        "tests/*"
-      ]
+      "@/*": ["src/*"],
+      "@config/*": ["config/*"],
+      "@controllers/*": ["controllers/*"],
+      "@dto/*": ["dto/*"],
+      "@entities/*": ["entities/*"],
+      "@enums/*": ["enums/*"],
+      "@env/*": ["env/*"],
+      "@interfaces/*": ["interfaces/*"],
+      "@middlewares/*": ["middlewares/*"],
+      "@models/*": ["models/*"],
+      "@pages/*": ["pages/*"],
+      "@prisma/*": ["prisma/*"],
+      "@routes/*": ["routes/*"],
+      "@services/*": ["services/*"],
+      "@src/*": ["src/*"],
+      "@order/*": ["src/order/*"],
+      "@test/*": ["test/*"],
+      "@types/*": ["types/*"],
+      "@user/*": ["src/user/*"],
+      "@utils/*": ["utils/*"]
     },
     /* Libraries */
-    "lib": [
-      "es2021",
-      "dom"
-    ],
+    "lib": ["es2021", "dom"],
     /* Type checking */
-    "typeRoots": [
-      "node_modules/@types",
-      "types"
-    ],
+    "typeRoots": ["node_modules/@types", "types"],
     "incremental": true,
-    "types": [
-      "jest",
-      "node"
-    ]
+    "types": ["jest", "node"]
   },
   "include": [
     "src/**/*.ts",
     "test/**/*.ts",
     "back/test/**/*.ts",
-    "app.e2e-spec.ts"
+    "app.e2e-spec.ts",
+    "prisma/prisma.service.ts"
   ],
   "references": [
     {
@@ -74,8 +53,5 @@
       "composite": true
     }
   ],
-  "exclude": [
-    "node_modules",
-    "dist"
-  ]
+  "exclude": ["node_modules", "dist"]
 }

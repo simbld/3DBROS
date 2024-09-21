@@ -11,7 +11,6 @@ services:
       - .env
     depends_on:
       - postgres
-      - mongodb
 
   nextjs:
     build:
@@ -27,7 +26,7 @@ services:
   postgres:
     image: postgres
     ports:
-      - "5434:5433"
+      - "5434:5432"
     environment:
       POSTGRES_USER: ${PG_USER}
       POSTGRES_PASSWORD: ${PG_PASSWORD}
@@ -35,17 +34,5 @@ services:
     volumes:
       - postgres-data:/var/lib/postgresql/data
 
-  mongodb:
-    image: mongo
-    ports:
-      - "27018:27018"
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER}
-      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
-      MONGO_INITDB_DATABASE: ${MONGO_NAME}
-    volumes:
-      - mongo-data:/data/db
-
 volumes:
   postgres-data:
-  mongo-data:
