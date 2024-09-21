@@ -29,11 +29,12 @@ model Order {
   address   String
   price     Float
   quantity  Int
-  cart      CartItem[] // Relation avec CartItem
-  user      User       @relation(fields: [userId], references: [id])
+  items      CartItem[] // Relation avec CartItem
+  status    String
   userId    Int
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
+  user      User       @relation(fields: [userId], references: [id])
 }
 
 model CartItem {
@@ -42,8 +43,10 @@ model CartItem {
   productName    String
   quantity       Int
   price          Float
-  order          Order     @relation(fields: [orderId], references: [id])
+  totalPrice      Float
   orderId        Int
+  status        String
+  order          Order     @relation(fields: [orderId], references: [id])
 }
 
 
