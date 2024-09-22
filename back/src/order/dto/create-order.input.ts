@@ -1,29 +1,68 @@
+import { Field, Int, InputType } from "@nestjs/graphql";
+import {
+  IsNotEmpty,
+  IsNumber,
+  IsString,
+  IsArray,
+  ValidateNested,
+} from "class-validator";
+import { Type } from "class-transformer";
+import { CartItemInput } from "./cart-item.input";
+
 /**
- * This file will define the input type for creating an order.
+ * DTO representing the input for creating a new order.
+ * This class is used to define the structure of the input when creating a new order via GraphQL mutations.
  *
- * @summary Input type for order creation.
- * @param target The class that the decorator is declared in.
- * @param propertyKey The property that the decorator is applied to.
- *
+ * @class CreateOrderInput
+ * @property {number} userId - The ID of the user placing the order.
+ * @property {string} customer - The customer who placed the order.
+ * @property {string} address - The address for the delivery.
+ * @property {number} price - The total price of the order.
+ * @property {number} quantity - The total quantity of items in the order.
+ * @property {CartItemInput[]} items - The list of items in the order.
+ * @property {string} status - The status of the order (e.g., pending, shipped, delivered).
+ * @property {number} totalPrice - The total price of the order (calculated from all items).
  */
-
-import { InputType, Int, Field } from "@nestjs/graphql";
-import { IsNotEmpty, IsNumber, IsString } from "class-validator";
-
 @InputType()
 export class CreateOrderInput {
+  @Field(() => Int)
+  @IsNotEmpty()
+  @IsNumber()
+  userId: number;
+
   @Field()
   @IsNotEmpty()
   @IsString()
   customer: string;
+
+  @Field()
+  @IsNotEmpty()
+  @IsString()
+  address: string;
 
   @Field(() => Int)
   @IsNotEmpty()
   @IsNumber()
   price: number;
 
+  @Field(() => Int)
+  @IsNotEmpty()
+  @IsNumber()
+  quantity: number;
+
+  @Field(() => [CartItemInput])
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => CartItemInput) // Use CartItemInput for each item in the order
+  items: CartItemInput[];
+
   @Field()
   @IsNotEmpty()
   @IsString()
-  address: string;
+  status: string; // Example: "pending", "shipped", "delivered"
+
+  @Field(() => Int)
+  @IsNotEmpty()
+  @IsNumber()
+  totalPrice: number; // The total price for the order (sum of all CartItem totalPrices)
 }
