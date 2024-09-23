@@ -1,62 +1,106 @@
 /**
  * Second step of the order feature: create the order service.
- * Order management service for the application which will contain business logic and interactions with the database
- * This service provides CRUD functionality to manipulate order data
- * Uses Mongoose for interaction with the MongoDB database, relying on the `Order` model.
- * Each method in this service is designed to be used by application controllers,
- * providing a layer of abstraction between business logic and data access.
- *
+ * Service for managing orders in the system.
+ * Provides methods for creating, updating, retrieving, and deleting orders.
  * @class OrderService
  * @constructor
- * @property {Model<Order>} orderModel - Mongoose model for the `Order` entity.
- * @property {OrderGateway} orderGateway - Gateway for order-related events.
- *
+ * @param {PrismaService} prisma - The Prisma service for database interactions.
  */
-
 import { Injectable } from "@nestjs/common";
-import { InjectModel } from "@nestjs/mongoose";
-import { Order } from "./entities/order.schema";
-import { Model } from "mongoose";
-import { OrderGateway } from "./order.gateway";
+import { PrismaService } from "@prisma/prisma.service";
+import { Prisma, Order } from "@prisma/client";
 
 @Injectable()
 export class OrderService {
-  constructor(
-    @InjectModel(Order.name) private orderModel: Model<Order>,
-    private orderGateway: OrderGateway,
-  ) {}
+  constructor(private readonly prisma: PrismaService) {}
 
+  /**
+   * Retrieve all orders from the database.
+   * @returns {Promise<Order[]>} - A promise that resolves to a list of orders.
+   */
   async getAll(): Promise<Order[]> {
-    return this.orderModel.find({});
+    return this.prisma.order.findMany({ include: { items: true } });
   }
 
-  async create(orderData: Order): Promise<Order> {
-    const newOrder = await this.orderModel.create(orderData);
-    await newOrder.save();
-    this.orderGateway.notify("order-added", newOrder);
-
-    return newOrder;
+  /**
+   * Create a new order in the database.
+   * @param {Prisma.OrderCreateInput} data - The data to create a new order.
+   * @returns {Promise<Order>} - The newly created order.
+   */
+  async createOrder(data: Prisma.OrderCreateInput): Promise<Order> {
+    return this.prisma.order.create({
+      data: {
+        customer: data.customer,
+        address: data.address,
+        price: data.price,
+        quantity: data.quantity,
+        status: data.status,
+        items: {
+          createMany: {
+            data: data.items as Prisma.CartItemCreateManyOrderInput[], // Ensure data.items is of the correct type
+          },
+        },
+        user: { connect: { id: data.user.connect.id } }, // Assure-toi que 'user.connect.id' existe
+      },
+    });
   }
 
-  async findOne(id: string): Promise<Order | null> {
-    const order = await this.orderModel.findById(id);
-    await this.orderGateway.notify("order-fetched", order);
-    return this.orderModel.findById(id);
+  /**
+   * Update an existing order by its ID.
+   * @param {number} id - The ID of the order to update.
+   * @param {Prisma.OrderUpdateInput} data - The new data to update the order.
+   * @returns {Promise<Order>} - The updated order.
+   */
+  async updateOrder(id: number, data: Prisma.OrderUpdateInput): Promise<Order> {
+    return this.prisma.order.update({
+      where: { id },
+      data,
+    });
   }
 
-  async update(id: string, orderData: any): Promise<Order | null> {
-    const updatedOrder = await this.orderModel.findByIdAndUpdate(
-      id,
-      orderData,
-      { new: true },
-    );
-    this.orderGateway.notify("order-updated", updatedOrder);
-    return updatedOrder;
+  /**
+   * Find a specific order by its ID.
+   * @param {number} id - The ID of the order to retrieve.
+   * @returns {Promise<Order | null>} - The found order, or null if not found.
+   */
+  async findOne(id: number): Promise<Order | null> {
+    return this.prisma.order.findUnique({
+      where: { id },
+      include: { items: true },
+    });
   }
 
-  async remove(id: string): Promise<Order | null> {
-    const deletedOrder = await this.orderModel.findByIdAndDelete(id);
-    await this.orderGateway.notify("order-deleted", deletedOrder);
-    return this.orderModel.findByIdAndDelete(id);
+  /**
+   * Remove an order by its ID.
+   * @param {number} id - The ID of the order to remove.
+   * @returns {Promise<Order>} - The deleted order.
+   */
+  async removeOrder(id: number): Promise<Order> {
+    return this.prisma.order.update({
+      where: { id },
+      data: { status: "removed" },
+    });
+  }
+
+  /**
+   * Delete an order by its ID.
+   * @param {number} id - The ID of the order to delete.
+   */
+  async deleteOrder(id: number): Promise<Order> {
+    return this.prisma.order.delete({
+      where: { id },
+    });
+  }
+
+  /**
+   * Find all orders for a specific user.
+   * @param {number} userId - The ID of the user to find orders for.
+   * @returns {Promise<Order[]>} - A list of orders for the user.
+   */
+  async findOrdersByUser(userId: number): Promise<Order[]> {
+    return this.prisma.order.findMany({
+      where: { userId },
+      include: { items: true },
+    });
   }
 }
