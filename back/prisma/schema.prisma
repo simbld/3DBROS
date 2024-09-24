@@ -14,39 +14,171 @@ datasource db {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  email     String   @unique
-  name      String?
+  id        Int       @id @default(autoincrement())
+  email     String    @unique
   password  String
-  orders    Order[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  name      String?
+  role      UserRole  @default(CUSTOMER)
+  orders    Order[]   // 1-N : Un utilisateur peut avoir plusieurs commandes
+  reviews   Review[]  // 1-N : Un utilisateur peut laisser plusieurs avis
+  cart      Cart?     // 1-1 : Un utilisateur peut avoir un panier
+  notifications Notification[] // 1-N : Un utilisateur peut recevoir plusieurs notifications
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 }
 
-model Order {
+model Product {
+  id             Int               @id @default(autoincrement())
+  name           String
+  price          Float
+  tva            Float
+  stock          Int
+  description    String
+  collections    ProductCollection[] // Relation N-N avec la collection de produits
+  category       Category?          @relation(fields: [categoryId], references: [id])
+  categoryId     Int?
+  orderItems     OrderItem[]        // Relation N-1 avec OrderItem
+  cartItems      CartItem[]         // Relation N-1 avec CartItem
+  reviews        Review[]           // Relation N-1 avec les avis
+  createdAt      DateTime           @default(now())
+  updatedAt      DateTime           @updatedAt
+}
+
+
+model ProductCollection {
+  productId   Int
+  collectionId Int
+  product     Product   @relation(fields: [productId], references: [id])
+  collection  Collection @relation(fields: [collectionId], references: [id])
+
+  @@id([productId, collectionId])
+}
+
+model Collection {
+  id        Int               @id @default(autoincrement())
+  name      String
+  products  ProductCollection[] // Relation N-N via la table de liaison
+  createdAt DateTime           @default(now())
+  updatedAt DateTime           @updatedAt
+}
+
+model Category {
   id        Int        @id @default(autoincrement())
-  customer  String
-  address   String
-  price     Float
-  quantity  Int
-  items      CartItem[] // Relation avec CartItem
-  status    String
-  userId    Int
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
-  user      User       @relation(fields: [userId], references: [id])
+  name      String     @unique
+  products  Product[]  // 1-N : Une catégorie peut avoir plusieurs produits
+}
+
+
+model Order {
+  id          Int          @id @default(autoincrement())
+  userId      Int
+  user        User         @relation(fields: [userId], references: [id]) // N-1 : Chaque commande appartient à un utilisateur
+  items       OrderItem[]  // 1-N : Une commande contient plusieurs articles
+  totalPrice  Float        // Total de la commande
+  status      OrderStatus  @default(PENDING)
+  payment     Payment?     // 1-1 : Chaque commande peut avoir un paiement
+  delivery    Delivery?    // 1-1 : Chaque commande peut avoir une livraison
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+}
+
+model OrderItem {
+  id         Int      @id @default(autoincrement())
+  productId  Int
+  product    Product   @relation(fields: [productId], references: [id]) // N-1 : Chaque article correspond à un produit
+  orderId    Int
+  order      Order     @relation(fields: [orderId], references: [id])   // N-1 : Chaque article appartient à une commande
+  quantity   Int
+  price      Float
+
+  @@unique([orderId, productId]) // Assure qu'un produit est unique dans une commande
+}
+
+
+model Cart {
+  id          Int        @id @default(autoincrement())
+  userId      Int        @unique
+  user        User       @relation(fields: [userId], references: [id])    // 1-1 : Un panier appartient à un utilisateur
+  items       CartItem[] // 1-N : Un panier contient plusieurs articles
 }
 
 model CartItem {
-  id             Int      @id @default(autoincrement())
-  productId      Int
-  productName    String
-  quantity       Int
-  price          Float
-  totalPrice      Float
-  orderId        Int
-  status        String
-  order          Order     @relation(fields: [orderId], references: [id])
+  id         Int      @id @default(autoincrement())
+  productId  Int
+  product    Product   @relation(fields: [productId], references: [id]) // N-1 : Un article appartient à un produit
+  cartId     Int
+  cart       Cart      @relation(fields: [cartId], references: [id])    // N-1 : Un article appartient à un panier
+  quantity   Int
+  price      Float
+
+  @@unique([cartId, productId]) // Assure qu'un produit est unique dans un panier
 }
 
 
+
+model Review {
+  id         Int      @id @default(autoincrement())
+  productId  Int
+  product    Product   @relation(fields: [productId], references: [id]) // N-1 : Un avis concerne un produit
+  userId     Int
+  user       User      @relation(fields: [userId], references: [id])
+  rating     Int
+  comment    String
+
+  @@unique([productId, userId]) // Assure qu'un utilisateur ne laisse qu'un avis par produit
+}
+
+
+
+model Payment {
+  id          Int        @id @default(autoincrement())
+  orderId     Int        @unique
+  order       Order      @relation(fields: [orderId], references: [id])   // 1-1 : Un paiement correspond à une commande
+  amount      Float
+  status      PaymentStatus @default(PENDING)
+  createdAt   DateTime   @default(now())
+}
+
+model Delivery {
+  id          Int        @id @default(autoincrement())
+  orderId     Int        @unique
+  order       Order      @relation(fields: [orderId], references: [id])   // 1-1 : Une livraison correspond à une commande
+  address     String
+  deliveryDate DateTime?
+  createdAt   DateTime   @default(now())
+}
+
+model Notification {
+  id          Int        @id @default(autoincrement())
+  userId      Int
+  user        User       @relation(fields: [userId], references: [id]) // N-1 : Une notification appartient à un utilisateur
+  message     String
+  status      NotificationStatus @default(UNREAD)
+  createdAt   DateTime   @default(now())
+
+  @@unique([userId, message])
+}
+
+enum UserRole {
+  CUSTOMER
+  ADMIN
+}
+
+enum OrderStatus {
+  PENDING
+  PAID
+  SHIPPED
+  DELIVERED
+  CANCELLED
+}
+
+enum PaymentStatus {
+  PENDING
+  COMPLETED
+  FAILED
+}
+
+enum NotificationStatus {
+  UNREAD
+  READ
+}
