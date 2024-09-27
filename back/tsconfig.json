@@ -1,18 +1,12 @@
 {
   "compilerOptions": {
-    /* Basic Options */
+    "strict": true,
     "module": "commonjs",
-    "declaration": true,
-    "removeComments": true,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
     "target": "es2021",
-    "sourceMap": true,
-    "outDir": "./dist",
-    /* Path mapping */
     "baseUrl": "./",
     "paths": {
       "@/*": ["src/*"],
+      "@common/*": ["src/common/*"],
       "@config/*": ["config/*"],
       "@controllers/*": ["controllers/*"],
       "@dto/*": ["dto/*"],
@@ -23,22 +17,27 @@
       "@middlewares/*": ["middlewares/*"],
       "@models/*": ["models/*"],
       "@pages/*": ["pages/*"],
+      "@pipes/*": ["pipes/*"],
       "@prisma/*": ["prisma/*"],
       "@routes/*": ["routes/*"],
       "@services/*": ["services/*"],
       "@src/*": ["src/*"],
-      "@order/*": ["src/order/*"],
+      "@order/*": ["src/models/order/*"],
       "@test/*": ["test/*"],
       "@types/*": ["types/*"],
       "@user/*": ["src/user/*"],
       "@utils/*": ["utils/*"]
     },
-    /* Libraries */
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "sourceMap": true,
+    "outDir": "./dist",
     "lib": ["es2021", "dom"],
-    /* Type checking */
     "typeRoots": ["node_modules/@types", "types"],
     "incremental": true,
-    "types": ["jest", "node"]
+    "types": ["jest", "node", "aws-sdk"]
   },
   "include": [
     "src/**/*.ts",
