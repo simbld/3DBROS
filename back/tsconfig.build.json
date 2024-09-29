@@ -8,10 +8,11 @@
   "include": [
     "src/**/*.ts",
     "src/**/*.tsx",
-    "src/order/order.schema.ts",
+    "src/models/order/order.schema.ts",
     "prisma/prisma.service.ts",
     "test/app.controller.spec.ts",
-    "test/app.spec.ts"
+    "test/app.spec.ts",
+    "src/models/graphQl/enums/user-role.enum.ts"
   ],
   "exclude": ["node_modules", "test", "**/*.spec.ts"]
 }
