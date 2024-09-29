@@ -1,162 +1,19 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+// 1-N : one to many
+// 1-1 : one to one
+// N-N : many to many
 
-generator client {
-  provider = "prisma-client-js"
-}
+// Prisma Schema for 3DBros E-commerce
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id        Int       @id @default(autoincrement())
-  email     String    @unique
-  password  String
-  name      String?
-  role      UserRole  @default(CUSTOMER)
-  orders    Order[]   // 1-N : Un utilisateur peut avoir plusieurs commandes
-  reviews   Review[]  // 1-N : Un utilisateur peut laisser plusieurs avis
-  cart      Cart?     // 1-1 : Un utilisateur peut avoir un panier
-  notifications Notification[] // 1-N : Un utilisateur peut recevoir plusieurs notifications
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-}
-
-model Product {
-  id             Int               @id @default(autoincrement())
-  name           String
-  price          Float
-  tva            Float
-  stock          Int
-  description    String
-  collections    ProductCollection[] // Relation N-N avec la collection de produits
-  category       Category?          @relation(fields: [categoryId], references: [id])
-  categoryId     Int?
-  orderItems     OrderItem[]        // Relation N-1 avec OrderItem
-  cartItems      CartItem[]         // Relation N-1 avec CartItem
-  reviews        Review[]           // Relation N-1 avec les avis
-  createdAt      DateTime           @default(now())
-  updatedAt      DateTime           @updatedAt
-}
-
-
-model ProductCollection {
-  productId   Int
-  collectionId Int
-  product     Product   @relation(fields: [productId], references: [id])
-  collection  Collection @relation(fields: [collectionId], references: [id])
-
-  @@id([productId, collectionId])
-}
-
-model Collection {
-  id        Int               @id @default(autoincrement())
-  name      String
-  products  ProductCollection[] // Relation N-N via la table de liaison
-  createdAt DateTime           @default(now())
-  updatedAt DateTime           @updatedAt
-}
-
-model Category {
-  id        Int        @id @default(autoincrement())
-  name      String     @unique
-  products  Product[]  // 1-N : Une catégorie peut avoir plusieurs produits
-}
-
-
-model Order {
-  id          Int          @id @default(autoincrement())
-  userId      Int
-  user        User         @relation(fields: [userId], references: [id]) // N-1 : Chaque commande appartient à un utilisateur
-  items       OrderItem[]  // 1-N : Une commande contient plusieurs articles
-  totalPrice  Float        // Total de la commande
-  status      OrderStatus  @default(PENDING)
-  payment     Payment?     // 1-1 : Chaque commande peut avoir un paiement
-  delivery    Delivery?    // 1-1 : Chaque commande peut avoir une livraison
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
-}
-
-model OrderItem {
-  id         Int      @id @default(autoincrement())
-  productId  Int
-  product    Product   @relation(fields: [productId], references: [id]) // N-1 : Chaque article correspond à un produit
-  orderId    Int
-  order      Order     @relation(fields: [orderId], references: [id])   // N-1 : Chaque article appartient à une commande
-  quantity   Int
-  price      Float
-
-  @@unique([orderId, productId]) // Assure qu'un produit est unique dans une commande
-}
-
-
-model Cart {
-  id          Int        @id @default(autoincrement())
-  userId      Int        @unique
-  user        User       @relation(fields: [userId], references: [id])    // 1-1 : Un panier appartient à un utilisateur
-  items       CartItem[] // 1-N : Un panier contient plusieurs articles
-}
-
-model CartItem {
-  id         Int      @id @default(autoincrement())
-  productId  Int
-  product    Product   @relation(fields: [productId], references: [id]) // N-1 : Un article appartient à un produit
-  cartId     Int
-  cart       Cart      @relation(fields: [cartId], references: [id])    // N-1 : Un article appartient à un panier
-  quantity   Int
-  price      Float
-
-  @@unique([cartId, productId]) // Assure qu'un produit est unique dans un panier
-}
-
-
-
-model Review {
-  id         Int      @id @default(autoincrement())
-  productId  Int
-  product    Product   @relation(fields: [productId], references: [id]) // N-1 : Un avis concerne un produit
-  userId     Int
-  user       User      @relation(fields: [userId], references: [id])
-  rating     Int
-  comment    String
-
-  @@unique([productId, userId]) // Assure qu'un utilisateur ne laisse qu'un avis par produit
-}
-
-
-
-model Payment {
-  id          Int        @id @default(autoincrement())
-  orderId     Int        @unique
-  order       Order      @relation(fields: [orderId], references: [id])   // 1-1 : Un paiement correspond à une commande
-  amount      Float
-  status      PaymentStatus @default(PENDING)
-  createdAt   DateTime   @default(now())
-}
-
-model Delivery {
-  id          Int        @id @default(autoincrement())
-  orderId     Int        @unique
-  order       Order      @relation(fields: [orderId], references: [id])   // 1-1 : Une livraison correspond à une commande
-  address     String
-  deliveryDate DateTime?
-  createdAt   DateTime   @default(now())
-}
-
-model Notification {
-  id          Int        @id @default(autoincrement())
-  userId      Int
-  user        User       @relation(fields: [userId], references: [id]) // N-1 : Une notification appartient à un utilisateur
-  message     String
-  status      NotificationStatus @default(UNREAD)
-  createdAt   DateTime   @default(now())
-
-  @@unique([userId, message])
+generator client {
+  provider = "prisma-client-js"
 }
 
 enum UserRole {
@@ -181,4 +38,176 @@ enum PaymentStatus {
 enum NotificationStatus {
   UNREAD
   READ
+}
+
+enum ProductStatus {
+  AVAILABLE
+  OUT_OF_STOCK
+  LIMITED_EDITION
+}
+
+enum ProductFinish {
+  RAW
+  VARNISHED
+  ENHANCED
+}
+
+model User {
+  id            Int            @id @default(autoincrement())
+  email         String         @unique
+  password      String
+  userName      String   @unique
+  firstName     String
+  lastName     String
+  role          UserRole       @default(CUSTOMER)
+  orders        Order[] // 1-N
+  reviews       Review[] // 1-N
+  cart          Cart? // 1-1
+  notifications Notification[] // 1-N
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+}
+
+model Product {
+  id          Int                 @id @default(autoincrement())
+  productName        String
+  description String
+  price       Float // Price excluding tax
+  vatId       Int
+  vat         Vat                 @relation(fields: [vatId], references: [id]) // N-1
+  stock       Int
+  status      ProductStatus       @default(AVAILABLE)
+  finish   ProductFinish    @default(RAW)
+  brand       String // Brand of the product
+  color       String?
+  size        String?
+  categoryId  Int
+  category    Category            @relation(fields: [categoryId], references: [id]) // N-1
+  collections ProductCollection[] @relation("ProductCollections") // N-N
+  reviews     Review[] // 1-N
+  cartItems   CartItem[] // N-1
+  orderItems  OrderItem[] // N-1
+  bestSeller  Boolean             @default(false) // To track if the product is a bestseller
+  newArrival  Boolean             @default(false) // To track if the product is newly arrived
+  popularity  Int                 @default(0) // Popularity score (could be based on views or sales)
+  createdAt   DateTime            @default(now()) // Date when product was added
+  updatedAt   DateTime            @default(now())
+
+  @@unique([productName, categoryId]) // Assuring product names are unique within the same category
+}
+
+model Category {
+  id       Int       @id @default(autoincrement())
+  categoryName     String    @unique
+  products Product[] // 1-N
+}
+
+model ProductCollection {
+  productId    Int
+  collectionId Int
+  product      Product    @relation("ProductCollections", fields: [productId], references: [id])
+  collection   Collection @relation("ProductCollections", fields: [collectionId], references: [id])
+
+  @@id([productId, collectionId]) // N-N
+}
+
+model Collection {
+  id        Int                 @id @default(autoincrement())
+  collectionName      String              @unique
+  products  ProductCollection[] @relation("ProductCollections")
+  createdAt DateTime            @default(now())
+}
+
+model CartItem {
+  id         Int         @id @default(autoincrement())
+  productId  Int
+  product    Product     @relation(fields: [productId], references: [id])
+  cartId     Int
+  cart       Cart        @relation(fields: [cartId], references: [id])
+  quantity   Int
+  price      Float
+  status     OrderStatus
+
+  @@unique([cartId, productId]) // Ensuring no duplicate product entries in the same cart
+}
+
+model Cart {
+  id     Int        @id @default(autoincrement())
+  cartItems  CartItem[] // 1-N
+  userId Int        @unique
+  user   User       @relation(fields: [userId], references: [id]) // 1-1
+}
+
+model Order {
+  id        Int         @id @default(autoincrement())
+  address   String
+  price     Float
+  quantity  Int
+  status    OrderStatus
+  items     OrderItem[] // 1-N
+  userId    Int
+  user      User        @relation(fields: [userId], references: [id]) // N-1
+  payment   Payment? // 1-1
+  delivery  Delivery? // 1-1
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @default(now())
+}
+
+model OrderItem {
+  id         Int         @id @default(autoincrement())
+  productId  Int
+  product    Product     @relation(fields: [productId], references: [id]) // N-1
+  orderId    Int
+  order      Order       @relation(fields: [orderId], references: [id]) // N-1
+  quantity   Int
+  price      Float
+  status     OrderStatus
+
+  @@unique([orderId, productId]) // Ensuring no duplicate product entries in the same order
+}
+
+model Review {
+  id        Int      @id @default(autoincrement())
+  rating    Int
+  comment   String?
+  productId Int
+  product   Product  @relation(fields: [productId], references: [id]) // N-1
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id]) // N-1
+  createdAt DateTime @default(now())
+}
+
+model Notification {
+  id        Int                @id @default(autoincrement())
+  message   String
+  status    NotificationStatus
+  userId    Int
+  user      User               @relation(fields: [userId], references: [id]) // N-1
+  createdAt DateTime           @default(now())
+}
+
+model Payment {
+  id        Int           @id @default(autoincrement())
+  amount    Float
+  status    PaymentStatus
+  method    String
+  orderId   Int           @unique
+  order     Order         @relation(fields: [orderId], references: [id]) // 1-1
+  createdAt DateTime      @default(now())
+}
+
+model Delivery {
+  id          Int      @id @default(autoincrement())
+  address     String
+  deliveryFee Float
+  orderId     Int      @unique
+  order       Order    @relation(fields: [orderId], references: [id]) // 1-1
+  createdAt   DateTime @default(now())
+}
+
+model Vat {
+  id        Int       @id @default(autoincrement())
+  rate      Float
+  products  Product[] // 1-N
+  createdAt DateTime  @default(now())
 }
