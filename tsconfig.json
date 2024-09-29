@@ -4,6 +4,10 @@
     "module": "commonjs",
     "strict": true,
     "esModuleInterop": true,
+    "baseUrl": "./",
+    "paths": {
+      "@shared/*": ["/shared/*"]
+    },
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true
   },
@@ -17,7 +21,8 @@
     "apps/**/*",
     "libs/**/*",
     "test/**/*",
-    "back/prisma/prisma.service.ts"
+    "back/prisma/prisma.service.ts",
+    "back/src/models/graphQl/enums/user-role.enum.ts"
   ],
   "exclude": ["node_modules", ".eslintrc.cjs"]
 }
