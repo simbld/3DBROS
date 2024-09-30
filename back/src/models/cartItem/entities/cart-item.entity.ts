@@ -1,8 +1,8 @@
 import { Field, Int, ObjectType, Float } from "@nestjs/graphql";
-import { IsInt, IsNumber, IsDate } from "class-validator";
+import { IsInt, IsNumber, IsNotEmpty, IsString } from "class-validator";
 import { Type } from "class-transformer";
-import { Product } from "@product/entities/product.entity";
-import { Cart } from "@cart/entities/cart.entity";
+import { Product } from "@/models/product/entities/product.entity";
+import { Cart } from "@/models/cart/entities/cart.entity";
 import { OrderStatus } from "@enums/order-status.enum";
 
 /**
@@ -22,35 +22,44 @@ import { OrderStatus } from "@enums/order-status.enum";
 @ObjectType()
 export class CartItem {
   @Field(() => Int)
+  @IsNotEmpty()
   @IsInt()
   id: number;
 
   @Field(() => Int)
+  @IsNotEmpty()
   @IsInt()
   productId: number;
 
   @Field(() => Product)
   @Type(() => Product)
+  @IsNotEmpty()
   product: Product;
 
   @Field(() => Int)
   @IsInt()
+  @IsNotEmpty()
   cartId: number;
 
   @Field(() => Cart)
   @Type(() => Cart)
+  @IsNotEmpty()
   cart: Cart;
 
   @Field(() => Int)
+  @IsNotEmpty()
   @IsInt()
   quantity: number;
 
   @Field(() => Float)
+  @IsNotEmpty()
   @IsNumber()
   price: number;
 
   @Field(() => OrderStatus)
   @Type(() => String)
+  @IsNotEmpty()
+  @IsString()
   status: OrderStatus;
 
   constructor(
