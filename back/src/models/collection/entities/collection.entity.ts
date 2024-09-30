@@ -1,5 +1,5 @@
 import { Field, Int, ObjectType } from "@nestjs/graphql";
-import { IsInt, IsString, IsArray, IsDate } from "class-validator";
+import { IsInt, IsString, IsArray, IsDate, IsNotEmpty } from "class-validator";
 import { Type } from "class-transformer";
 import { ProductCollection } from "@productCollection/entities/product-collection.entity";
 
@@ -16,20 +16,24 @@ import { ProductCollection } from "@productCollection/entities/product-collectio
 @ObjectType()
 export class Collection {
   @Field(() => Int)
+  @IsNotEmpty()
   @IsInt()
   id: number;
 
   @Field()
+  @IsNotEmpty()
   @IsString()
   @Type(() => String)
   collectionName: string;
 
   @Field(() => [ProductCollection])
+  @IsNotEmpty()
   @IsArray()
   @Type(() => ProductCollection)
   products: ProductCollection[];
 
   @Field()
+  @IsNotEmpty()
   @IsDate()
   @Type(() => Date)
   createdAt: Date;
