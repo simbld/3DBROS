@@ -1,5 +1,5 @@
 import { Field, Int, ObjectType } from "@nestjs/graphql";
-import { IsInt, IsArray } from "class-validator";
+import { IsInt, IsArray, IsNotEmpty } from "class-validator";
 import { Type } from "class-transformer";
 import { User } from "@user/entities/user.entity";
 import { CartItem } from "@cartItem/entities/cart-item.entity";
@@ -17,19 +17,23 @@ import { CartItem } from "@cartItem/entities/cart-item.entity";
 @ObjectType()
 export class Cart {
   @Field(() => Int)
+  @IsNotEmpty()
   @IsInt()
   id: number;
 
   @Field(() => [CartItem])
+  @IsNotEmpty()
   @IsArray()
   @Type(() => CartItem)
   cartItems: CartItem[];
 
   @Field(() => Int)
+  @IsNotEmpty()
   @IsInt()
   userId: number;
 
   @Field(() => User)
+  @IsNotEmpty()
   @Type(() => User)
   user: User;
 
