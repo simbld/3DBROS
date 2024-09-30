@@ -5,6 +5,7 @@
     "target": "es2021",
     "baseUrl": "./",
     "paths": {
+      "@/*": ["src/*"],
       "@common/*": ["../back/src/common/*"],
       "@config/*": ["../back/src/config/*"],
       "@controllers/*": ["../back/src/controllers/*"],
