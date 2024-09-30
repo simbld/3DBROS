@@ -1,5 +1,5 @@
 import { Field, Int, ObjectType, Float } from "@nestjs/graphql";
-import { IsInt, IsString, IsNumber, IsDate } from "class-validator";
+import { IsInt, IsString, IsNumber, IsDate, IsNotEmpty } from "class-validator";
 import { Type } from "class-transformer";
 import { Order } from "@order/entities/order.entity";
 
@@ -18,27 +18,33 @@ import { Order } from "@order/entities/order.entity";
 @ObjectType()
 export class Delivery {
   @Field(() => Int)
+  @IsNotEmpty()
   @IsInt()
   id: number;
 
   @Field()
+  @IsNotEmpty()
   @IsString()
   @Type(() => String)
   address: string;
 
   @Field(() => Float)
+  @IsNotEmpty()
   @IsNumber()
   deliveryFee: number;
 
   @Field(() => Int)
+  @IsNotEmpty()
   @IsInt()
   orderId: number;
 
   @Field(() => Order)
+  @IsNotEmpty()
   @Type(() => Order)
   order: Order;
 
   @Field()
+  @IsNotEmpty()
   @IsDate()
   @Type(() => Date)
   createdAt: Date;
