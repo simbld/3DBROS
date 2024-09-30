@@ -1,7 +1,7 @@
 import { Cart } from "@cart/entities/cart.entity";
 import { Order } from "@order/entities/order.entity";
 import { Field, Int, ObjectType } from "@nestjs/graphql";
-import { IsInt, IsString, IsArray, IsDate } from "class-validator";
+import { IsInt, IsString, IsArray, IsDate, IsNotEmpty } from "class-validator";
 import { Type } from "class-transformer";
 import { Review } from "@review/entities/review.entity";
 
@@ -26,40 +26,48 @@ import { Review } from "@review/entities/review.entity";
 @ObjectType()
 export class User {
   @Field(() => Int)
+  @IsNotEmpty()
   @IsInt()
   id: number;
 
   @Field()
+  @IsNotEmpty()
   @IsString()
   @Type(() => String)
   userName: string;
 
   @Field()
+  @IsNotEmpty()
   @IsString()
   @Type(() => String)
   firstName: string;
 
   @Field()
+  @IsNotEmpty()
   @IsString()
   @Type(() => String)
   lastName: string;
 
   @Field()
+  @IsNotEmpty()
   @IsString()
   @Type(() => String)
   email: string;
 
   @Field()
+  @IsNotEmpty()
   @IsString()
   @Type(() => String)
   password: string;
 
   @Field()
+  @IsNotEmpty()
   @IsString()
   @Type(() => String)
   role: string;
 
   @Field(() => [Order])
+  @IsNotEmpty()
   @IsArray()
   @Type(() => Order)
   orders: Order[];
@@ -69,16 +77,19 @@ export class User {
   cart: Cart;
 
   @Field(() => [Review])
+  @IsNotEmpty()
   @IsArray()
   @Type(() => Review)
   reviews: Review[];
 
   @Field()
+  @IsNotEmpty()
   @IsDate()
   @Type(() => Date)
   createdAt: Date;
 
   @Field()
+  @IsNotEmpty()
   @IsDate()
   @Type(() => Date)
   updatedAt: Date;

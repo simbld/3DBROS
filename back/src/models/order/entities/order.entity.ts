@@ -1,5 +1,12 @@
 import { Field, Int, ObjectType, Float } from "@nestjs/graphql";
-import { IsInt, IsString, IsArray, IsDate, IsNumber } from "class-validator";
+import {
+  IsInt,
+  IsString,
+  IsArray,
+  IsDate,
+  IsNumber,
+  IsNotEmpty,
+} from "class-validator";
 import { Type } from "class-transformer";
 import { OrderItem } from "@orderItem/entities/order-item.entity";
 import { User } from "@user/entities/user.entity";
@@ -27,32 +34,39 @@ import { OrderStatus } from "@enums/order-status.enum";
 @ObjectType()
 export class Order {
   @Field(() => Int)
+  @IsNotEmpty()
   @IsInt()
   id: number;
 
   @Field()
+  @IsNotEmpty()
   @IsString()
   @Type(() => String)
   address: string;
 
   @Field(() => Float)
+  @IsNotEmpty()
   @IsNumber()
   price: number;
 
   @Field(() => Int)
+  @IsNotEmpty()
   @IsInt()
   quantity: number;
 
   @Field(() => OrderStatus)
+  @IsNotEmpty()
   @Type(() => String)
   status: OrderStatus;
 
   @Field(() => [OrderItem])
+  @IsNotEmpty()
   @IsArray()
   @Type(() => OrderItem)
   items: OrderItem[];
 
   @Field(() => User)
+  @IsNotEmpty()
   @Type(() => User)
   user: User;
 
@@ -65,11 +79,13 @@ export class Order {
   delivery?: Delivery;
 
   @Field()
+  @IsNotEmpty()
   @IsDate()
   @Type(() => Date)
   createdAt: Date;
 
   @Field()
+  @IsNotEmpty()
   @IsDate()
   @Type(() => Date)
   updatedAt: Date;

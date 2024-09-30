@@ -1,5 +1,5 @@
 import { Field, Int, ObjectType, Float } from "@nestjs/graphql";
-import { IsInt, IsNumber, IsDate } from "class-validator";
+import { IsInt, IsNumber, IsDate, IsNotEmpty } from "class-validator";
 import { Type } from "class-transformer";
 import { Product } from "@product/entities/product.entity";
 
@@ -16,18 +16,22 @@ import { Product } from "@product/entities/product.entity";
 @ObjectType()
 export class Vat {
   @Field(() => Int)
+  @IsNotEmpty()
   @IsInt()
   id: number;
 
   @Field(() => Float)
+  @IsNotEmpty()
   @IsNumber()
   rate: number;
 
   @Field(() => [Product])
+  @IsNotEmpty()
   @Type(() => Product)
   products: Product[];
 
   @Field()
+  @IsNotEmpty()
   @IsDate()
   @Type(() => Date)
   createdAt: Date;

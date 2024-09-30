@@ -1,5 +1,5 @@
 import { Field, Int, ObjectType, Float } from "@nestjs/graphql";
-import { IsInt, IsNumber } from "class-validator";
+import { IsInt, IsNumber, IsNotEmpty } from "class-validator";
 import { Type } from "class-transformer";
 import { Product } from "@product/entities/product.entity";
 import { Order } from "@order/entities/order.entity";
@@ -22,34 +22,42 @@ import { OrderStatus } from "@enums/order-status.enum";
 @ObjectType()
 export class OrderItem {
   @Field(() => Int)
+  @IsNotEmpty()
   @IsInt()
   id: number;
 
   @Field(() => Int)
+  @IsNotEmpty()
   @IsInt()
   productId: number;
 
   @Field(() => Product)
+  @IsNotEmpty()
   @Type(() => Product)
   product: Product;
 
   @Field(() => Int)
+  @IsNotEmpty()
   @IsInt()
   orderId: number;
 
   @Field(() => Order)
+  @IsNotEmpty()
   @Type(() => Order)
   order: Order;
 
   @Field(() => Int)
+  @IsNotEmpty()
   @IsInt()
   quantity: number;
 
   @Field(() => Float)
+  @IsNotEmpty()
   @IsNumber()
   price: number;
 
   @Field(() => OrderStatus)
+  @IsNotEmpty()
   @Type(() => String)
   status: OrderStatus;
 

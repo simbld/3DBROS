@@ -1,5 +1,5 @@
 import { Field, Int, ObjectType } from "@nestjs/graphql";
-import { IsInt, IsString, IsArray, IsDate } from "class-validator";
+import { IsInt, IsString, IsArray, IsDate, IsNotEmpty } from "class-validator";
 import { Type } from "class-transformer";
 import { Product } from "@product/entities/product.entity";
 
@@ -16,20 +16,24 @@ import { Product } from "@product/entities/product.entity";
 @ObjectType()
 export class Category {
   @Field(() => Int)
+  @IsNotEmpty()
   @IsInt()
   id: number;
 
   @Field()
+  @IsNotEmpty()
   @IsString()
   @Type(() => String)
   categoryName: string;
 
   @Field(() => [Product])
+  @IsNotEmpty()
   @IsArray()
   @Type(() => Product)
   products: Product[];
 
   @Field()
+  @IsNotEmpty()
   @IsDate()
   @Type(() => Date)
   createdAt: Date;

@@ -1,5 +1,5 @@
 import { Field, Int, ObjectType } from "@nestjs/graphql";
-import { IsInt, IsString, IsDate } from "class-validator";
+import { IsInt, IsString, IsDate, IsNotEmpty } from "class-validator";
 import { Type } from "class-transformer";
 import { User } from "@user/entities/user.entity";
 import { NotificationStatus } from "@enums/notification-status.enum";
@@ -19,27 +19,33 @@ import { NotificationStatus } from "@enums/notification-status.enum";
 @ObjectType()
 export class Notification {
   @Field(() => Int)
+  @IsNotEmpty()
   @IsInt()
   id: number;
 
   @Field()
+  @IsNotEmpty()
   @IsString()
   @Type(() => String)
   message: string;
 
   @Field(() => NotificationStatus)
+  @IsNotEmpty()
   @Type(() => String)
   status: NotificationStatus;
 
   @Field(() => Int)
+  @IsNotEmpty()
   @IsInt()
   userId: number;
 
   @Field(() => User)
+  @IsNotEmpty()
   @Type(() => User)
   user: User;
 
   @Field()
+  @IsNotEmpty()
   @IsDate()
   @Type(() => Date)
   createdAt: Date;
