@@ -4,26 +4,26 @@ const config: Linter.Config = {
   root: true,
   env: {
     node: true,
-    jest: true
+    jest: true,
   },
   ignorePatterns: [
     "node_modules",
     "build",
     "dist",
     "ormconfig.js",
-    ".eslintrc.cjs"
+    ".eslintrc.cjs",
   ],
   parser: "@typescript-eslint/parser",
   parserOptions: {
     project: ["./tsconfig.json", "./back/tsconfig.e2e.json"],
-    sourceType: "module"
+    sourceType: "module",
   },
   plugins: ["@typescript-eslint/eslint-plugin"],
   extends: [
     "plugin:@typescript-eslint/recommended",
     "eslint-config-prettier",
     "plugin:prettier/recommended",
-    "prettier"
+    "prettier",
   ],
   rules: {
     "@typescript-eslint/interface-name-prefix": "off",
@@ -35,19 +35,29 @@ const config: Linter.Config = {
       {
         singleQuote: false,
         quoteProps: "as-needed",
-        endOfLine: "auto"
-      }
+        endOfLine: "auto",
+      },
     ],
-    "comma-dangle": ["error", "never"]
+    "comma-dangle": ["error", "never"],
+  },
+  settings: {
+    "import/resolver": {
+      node: {
+        extensions: [".js", ".jsx", ".ts", ".tsx"],
+      },
+      typescript: {
+        project: ["./tsconfig.json", "./tsconfig.e2e.json"],
+      },
+    },
   },
   overrides: [
     {
       files: ["*.ts", "*.tsx", "*.js", "*.jsx"],
       parserOptions: {
-        project: ["./tsconfig.json"]
-      }
-    }
-  ]
+        project: ["./tsconfig.json"],
+      },
+    },
+  ],
 };
 
 export default config;
