@@ -59,12 +59,14 @@
     "./../app.e2e-spec.ts",
     "prisma/prisma.service.ts",
     "./../prisma/prisma.service.ts",
-    "src/models/graphQl/enums/user-role.enum.ts",
-    "./../src/models/graphQl/enums/user-role.enum.ts"
+    "src/graphQl/enums/*",
+    "./../src/graphQl/enums/*",
+    "src/shared/**/*",
+    "./../src/shared/**/*"
   ],
   "references": [
     {
-      "path": "./tsconfig.build.json",
+      "path": ["./tsconfig.build.json"],
       "composite": true
     }
   ],

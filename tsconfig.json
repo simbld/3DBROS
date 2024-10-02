@@ -6,8 +6,8 @@
     "esModuleInterop": true,
     "baseUrl": "./",
     "paths": {
-      "@shared/*": ["/shared/*"],
-      "@enums/*": ["/back/src/graphQl/enums/*"]
+      "@shared/*": ["shared/*"],
+      "@enums/*": ["back/src/graphQl/enums/*"]
     },
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true
@@ -23,7 +23,14 @@
     "libs/**/*",
     "test/**/*",
     "back/prisma/prisma.service.ts",
-    "back/src/models/graphQl/enums/user-role.enum.ts"
+    "back/src/graphQl/enums/*",
+    "shared/**/*"
+  ],
+  "references": [
+    {
+      "path": ["./tsconfig.build.json"],
+      "composite": true
+    }
   ],
   "exclude": ["node_modules", ".eslintrc.cjs"]
 }
