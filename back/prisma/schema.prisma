@@ -57,14 +57,18 @@ model User {
   id            Int            @id @default(autoincrement())
   email         String         @unique
   password      String
-  userName      String   @unique
+  userName      String         @unique
   firstName     String
   lastName      String
   role          UserRole       @default(CUSTOMER)
-  orders        Order[]        // 1-N
-  reviews       Review[]       // 1-N
-  cart          Cart?          // 1-1
+  orders        Order[] // 1-N
+  reviews       Review[] // 1-N
+  comments      Comment[] // 1-N
+  likes         Like[] // 1-N
+  cart          Cart? // 1-1
   notifications Notification[] // 1-N
+  follows       Follow[]       @relation("follows")
+  followedBy    Follow[]       @relation("followed")
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt
 }
@@ -73,26 +77,29 @@ model Product {
   id          Int                 @id @default(autoincrement())
   productName String
   description String
-  price       Float // Price excluding tax
+  price       Float
   vatId       Int
   vat         Vat                 @relation(fields: [vatId], references: [id]) // N-1
   stock       Int
   status      ProductStatus       @default(AVAILABLE)
   finish      ProductFinish       @default(RAW)
-  brand       String // Brand of the product
+  brand       String
   color       String?
   size        String?
   categoryId  Int
-  category    Category            @relation(fields: [categoryId], references: [id]) // N-1
+  category    Category  @relation(fields: [categoryId], references: [id]) // N-1
   collections ProductCollection[] @relation("ProductCollections") // N-N
-  reviews     Review[]            // 1-N
-  cartItems   CartItem[]          // N-1
-  orderItems  OrderItem[]         // N-1
+  reviews     Review[] // 1-N
+  comments    Comment[] // 1-N
+  cartItems   CartItem[] // N-1
+  orderItems  OrderItem[] // N-1
   bestSeller  Boolean             @default(false)
   newArrival  Boolean             @default(false)
   popularity  Int                 @default(0)
+  rating      Float               @default(0)
   createdAt   DateTime            @default(now())
   updatedAt   DateTime            @default(now())
+  Like        Like[]
 
   @@unique([productName, categoryId])
 }
@@ -106,28 +113,28 @@ model Category {
 model ProductCollection {
   productId    Int
   collectionId Int
-  product      Product    @relation("ProductCollections", fields: [productId], references: [id])
+  product  Product @relation("ProductCollections", fields: [productId], references: [id])
   collection   Collection @relation("ProductCollections", fields: [collectionId], references: [id])
 
   @@id([productId, collectionId])
 }
 
 model Collection {
-  id           Int                 @id @default(autoincrement())
-  collectionName String            @unique
-  products     ProductCollection[] @relation("ProductCollections")
-  createdAt    DateTime            @default(now())
+  id             Int           @id @default(autoincrement())
+  collectionName String           @unique
+  products       ProductCollection[] @relation("ProductCollections")
+  createdAt      DateTime        @default(now())
 }
 
 model CartItem {
-  id         Int         @id @default(autoincrement())
-  productId  Int
-  product    Product     @relation(fields: [productId], references: [id])
-  cartId     Int
-  cart       Cart        @relation(fields: [cartId], references: [id])
-  quantity   Int
-  price      Float
-  status     OrderStatus
+  id        Int         @id @default(autoincrement())
+  productId Int
+  product   Product     @relation(fields: [productId], references: [id])
+  cartId    Int
+  cart      Cart        @relation(fields: [cartId], references: [id])
+  quantity  Int
+  price     Float
+  status    OrderStatus
 
   @@unique([cartId, productId])
 }
@@ -148,21 +155,21 @@ model Order {
   items     OrderItem[] // 1-N
   userId    Int
   user      User        @relation(fields: [userId], references: [id]) // N-1
-  payment   Payment?    // 1-1
-  delivery  Delivery?   // 1-1
+  payment   Payment? // 1-1
+  delivery  Delivery? // 1-1
   createdAt DateTime    @default(now())
   updatedAt DateTime    @default(now())
 }
 
 model OrderItem {
-  id         Int         @id @default(autoincrement())
-  productId  Int
-  product    Product     @relation(fields: [productId], references: [id]) // N-1
-  orderId    Int
-  order      Order       @relation(fields: [orderId], references: [id]) // N-1
-  quantity   Int
-  price      Float
-  status     OrderStatus
+  id        Int         @id @default(autoincrement())
+  productId Int
+  product   Product     @relation(fields: [productId], references: [id]) // N-1
+  orderId   Int
+  order     Order       @relation(fields: [orderId], references: [id]) // N-1
+  quantity  Int
+  price     Float
+  status    OrderStatus
 
   @@unique([orderId, productId])
 }
@@ -174,59 +181,60 @@ model Review {
   productId Int
   product   Product  @relation(fields: [productId], references: [id]) // N-1
   userId    Int
-  user      User    @relation(fields: [userId], references: [id]) // N-1
+  user      User     @relation(fields: [userId], references: [id]) // N-1
   createdAt DateTime @default(now())
 }
 
 model Comment {
-  id         Int      @id @default(autoincrement())
-  content    String
-  createdAt  DateTime @default(now())
-  userId     Int
-  user       User     @relation(fields: [userId], references: [id]) // N-1
-  productId  Int?
-  product    Product? @relation(fields: [productId], references: [id]) // N-1
+  id        Int      @id @default(autoincrement())
+  content   String
+  createdAt DateTime @default(now())
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id]) // N-1
+  productId Int?
+  product   Product? @relation(fields: [productId], references: [id]) // N-1
+  Like      Like[]
 }
 
 model Like {
-  id         Int        @id @default(autoincrement())
-  userId     Int
-  user       User       @relation(fields: [userId], references: [id]) // N-1
-  productId  Int?
-  product    Product?    @relation(fields: [productId], references: [id]) // N-1
-  commentId  Int?
-  comment    Comment?   @relation(fields: [commentId], references: [id]) // N-1
-  reaction   ReactionType
-  createdAt  DateTime     @default(now())
+  id        Int        @id @default(autoincrement())
+  userId    Int
+  user      User      @relation(fields: [userId], references: [id]) // N-1
+  productId Int?
+  product   Product?    @relation(fields: [productId], references: [id]) // N-1
+  commentId Int?
+  comment   Comment?    @relation(fields: [commentId], references: [id]) // N-1
+  reaction  ReactionType
+  createdAt DateTime    @default(now())
 }
 
 model Follow {
-  id          Int    @id @default(autoincrement())
-  followerId  Int
-  follower    User @relation("follows", fields: [followerId], references: [id])
-  followedId  Int
-  followed    User @relation("followed", fields: [followedId], references: [id])
-  createdAt   DateTime @default(now())
-  
-  @@unique([followerId, followedId]) // Un utilisateur ne peut suivre un autre qu'une seule fois
+  id         Int      @id @default(autoincrement())
+  followerId Int
+  follower   User   @relation("follows", fields: [followerId], references: [id])
+  followedId Int
+  followed   User  @relation("followed", fields: [followedId], references: [id])
+  createdAt  DateTime @default(now())
+
+  @@unique([followerId, followedId])
 }
 
 model Notification {
-  id        Int             @id @default(autoincrement())
+  id        Int                @id @default(autoincrement())
   message   String
   status    NotificationStatus
   userId    Int
-  user      User            @relation(fields: [userId], references: [id]) // N-1
-  createdAt DateTime          @default(now())
+  user      User               @relation(fields: [userId], references: [id]) // N-1
+  createdAt DateTime           @default(now())
 }
 
 model Payment {
-  id        Int          @id @default(autoincrement())
+  id        Int           @id @default(autoincrement())
   amount    Float
   status    PaymentStatus
   method    String
   orderId   Int           @unique
-  order     Order        @relation(fields: [orderId], references: [id]) // 1-1
+  order     Order         @relation(fields: [orderId], references: [id]) // 1-1
   createdAt DateTime      @default(now())
 }
 
