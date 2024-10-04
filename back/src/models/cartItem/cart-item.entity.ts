@@ -8,8 +8,8 @@ import {
   IsPositive,
 } from "class-validator";
 import { Type } from "class-transformer";
-import { Product } from "@entityProduct/product.entity";
-import { Cart } from "@entityCart/cart.entity";
+import { Product } from "@entityProduct";
+import { Cart } from "@entityCart";
 import { OrderStatus } from "@enums/order-status.enum";
 
 /**
