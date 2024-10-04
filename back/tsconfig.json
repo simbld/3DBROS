@@ -95,7 +95,7 @@
       "@moduleVat": ["src/modules/vat.module.ts"],
 
       // resolvers paths
-      "@resolverCart": ["src/resolvers/cart.ts"],
+      "@resolverCart": ["src/resolvers/cart.resolver.ts"],
       "@resolverCartItem": ["src/resolvers/cart-item.resolver.ts"],
       "@resolverCategory": ["src/resolvers/category.resolver.ts"],
       "@resolverCollection": ["src/resolvers/collection.resolver.ts"],
@@ -111,6 +111,24 @@
       "@resolverReview": ["src/resolvers/review.resolver.ts"],
       "@resolverUser": ["src/resolvers/user.resolver.ts"],
       "@resolverVat": ["src/resolvers/vat.resolver.ts"],
+
+      // gateways paths
+      "@gatewayCart": ["src/gateways/cart.gateway.ts"],
+      "@gatewayCartItem": ["src/gateways/cart-item.gateway.ts"],
+      "@gatewayCategory": ["src/gateways/category.gateway.ts"],
+      "@gatewayCollection": ["src/gateways/collection.gateway.ts"],
+      "@gatewayDelivery": ["src/gateways/delivery.gateway.ts"],
+      "@gatewayNotification": ["src/gateways/notification.gateway.ts"],
+      "@gatewayOrder": ["src/gateways/order.gateway.ts"],
+      "@gatewayOrderItem": ["src/gateways/order-item.gateway.ts"],
+      "@gatewayPayment": ["src/gateways/payment.gateway.ts"],
+      "@gatewayProduct": ["src/gateways/product.gateway.ts"],
+      "@gatewayProductCollection": [
+        "src/gateways/product-collection.gateway.ts"
+      ],
+      "@gatewayReview": ["src/gateways/review.gateway.ts"],
+      "@gatewayUser": ["src/gateways/user.gateway.ts"],
+      "@gatewayVat": ["src/gateways/vat.gateway.ts"],
 
       // middlewares paths
       "@middlewareAuth": ["src/middlewares/auth.middleware.ts"],
