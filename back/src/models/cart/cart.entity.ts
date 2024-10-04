@@ -1,8 +1,8 @@
 import { Field, Int, ObjectType } from "@nestjs/graphql";
-import { IsInt, IsNotEmpty, IsPositive } from "class-validator";
+import { IsArray, IsInt, IsNotEmpty, IsPositive } from "class-validator";
 import { Type } from "class-transformer";
-import { CartItem } from "@entityCartItem/cart-item.entity";
-import { User } from "@entityUser/user.entity";
+import { CartItem } from "@entityCartItem";
+import { User } from "@entityUser";
 
 /**
  * Entity representing a Cart in the e-commerce system.
@@ -23,6 +23,7 @@ export class Cart {
   id: number;
 
   @Field(() => [CartItem])
+  @IsArray()
   @Type(() => CartItem)
   @IsNotEmpty({ message: "Cart must have at least one item" })
   cartItems: CartItem[];
