@@ -15,6 +15,11 @@ import { Field, Float, Int } from "@nestjs/graphql";
 export class UpdateCartItemDto {
   @Field(() => Int)
   @IsInt()
+  @IsPositive({ message: "ID must be a positive integer" })
+  id: number;
+
+  @Field(() => Int)
+  @IsInt()
   @IsOptional()
   @IsPositive({ message: "Product ID must be a positive integer" })
   productId?: number;
@@ -37,11 +42,13 @@ export class UpdateCartItemDto {
   status?: OrderStatus;
 
   constructor(
+    id: number,
     productId?: number,
     price?: number,
     quantity?: number,
     status?: OrderStatus,
   ) {
+    this.id = id;
     this.productId = productId;
     this.price = price;
     this.quantity = quantity;
