@@ -1,8 +1,8 @@
 import { Field, Int, ObjectType } from "@nestjs/graphql";
 import { IsInt, IsNotEmpty, IsPositive } from "class-validator";
 import { Type } from "class-transformer";
-import { CartItem } from "@/models/cartItem/entities/cart-item.entity";
-import { User } from "@/models/user/entities/user.entity";
+import { CartItem } from "@entityCartItem/cart-item.entity";
+import { User } from "@entityUser/user.entity";
 
 /**
  * Entity representing a Cart in the e-commerce system.
