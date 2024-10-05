@@ -28,7 +28,6 @@
       "@design/*": ["src/design/*"],
       "@documents/*": ["src/documents/*"],
       "@elements/*": ["src/elements/*"],
-      "@enums/*": ["src/enums/*"],
       "@env/*": ["src/env/*"],
       "@features/*": ["src/features/*"],
       "@fonts/*": ["src/fonts/*"],

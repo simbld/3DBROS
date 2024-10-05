@@ -1,11 +1,7 @@
+// Prisma Schema for 3DBros E-commerce
+
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// 1-N : one to many
-// 1-1 : one to one
-// N-N : many to many
-
-// Prisma Schema for 3DBros E-commerce
 
 datasource db {
   provider = "postgresql"
@@ -52,90 +48,102 @@ enum ProductFinish {
   ENHANCED
 }
 
+enum ReactionType {
+  LIKE
+  DISLIKE
+}
+
 model User {
   id            Int            @id @default(autoincrement())
   email         String         @unique
   password      String
-  userName      String   @unique
+  userName      String         @unique
   firstName     String
-  lastName     String
+  lastName      String
   role          UserRole       @default(CUSTOMER)
   orders        Order[] // 1-N
   reviews       Review[] // 1-N
+  comments      Comment[] // 1-N
+  likes         Like[] // 1-N
   cart          Cart? // 1-1
   notifications Notification[] // 1-N
+  follows       Follow[]       @relation("follows")
+  followedBy    Follow[]       @relation("followed")
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt
 }
 
 model Product {
   id          Int                 @id @default(autoincrement())
-  productName        String
+  productName String
   description String
-  price       Float // Price excluding tax
+  price       Float
   vatId       Int
   vat         Vat                 @relation(fields: [vatId], references: [id]) // N-1
   stock       Int
   status      ProductStatus       @default(AVAILABLE)
-  finish   ProductFinish    @default(RAW)
-  brand       String // Brand of the product
+  finish      ProductFinish       @default(RAW)
+  brand       String
   color       String?
   size        String?
   categoryId  Int
-  category    Category            @relation(fields: [categoryId], references: [id]) // N-1
+  category    Category  @relation(fields: [categoryId], references: [id]) // N-1
   collections ProductCollection[] @relation("ProductCollections") // N-N
   reviews     Review[] // 1-N
+  comments    Comment[] // 1-N
   cartItems   CartItem[] // N-1
   orderItems  OrderItem[] // N-1
-  bestSeller  Boolean             @default(false) // To track if the product is a bestseller
-  newArrival  Boolean             @default(false) // To track if the product is newly arrived
-  popularity  Int                 @default(0) // Popularity score (could be based on views or sales)
-  createdAt   DateTime            @default(now()) // Date when product was added
+  bestSeller  Boolean             @default(false)
+  newArrival  Boolean             @default(false)
+  popularity  Int                 @default(0)
+  rating      Float               @default(0)
+  createdAt   DateTime            @default(now())
   updatedAt   DateTime            @default(now())
+  Like        Like[]
 
-  @@unique([productName, categoryId]) // Assuring product names are unique within the same category
+  @@unique([productName, categoryId])
 }
 
 model Category {
-  id       Int       @id @default(autoincrement())
-  categoryName     String    @unique
-  products Product[] // 1-N
+  id           Int       @id @default(autoincrement())
+  categoryName String    @unique
+  products     Product[] // 1-N
 }
 
 model ProductCollection {
   productId    Int
   collectionId Int
-  product      Product    @relation("ProductCollections", fields: [productId], references: [id])
+  product  Product @relation("ProductCollections", fields: [productId], references: [id])
   collection   Collection @relation("ProductCollections", fields: [collectionId], references: [id])
 
-  @@id([productId, collectionId]) // N-N
+  @@id([productId, collectionId])
 }
 
 model Collection {
-  id        Int                 @id @default(autoincrement())
-  collectionName      String              @unique
-  products  ProductCollection[] @relation("ProductCollections")
-  createdAt DateTime            @default(now())
+  id             Int           @id @default(autoincrement())
+  collectionName String           @unique
+  products       ProductCollection[] @relation("ProductCollections")
+  createdAt      DateTime        @default(now())
 }
 
 model CartItem {
-  id         Int         @id @default(autoincrement())
-  productId  Int
-  product    Product     @relation(fields: [productId], references: [id])
-  cartId     Int
-  cart       Cart        @relation(fields: [cartId], references: [id])
-  quantity   Int
-  price      Float
-  status     OrderStatus
+  id        Int         @id @default(autoincrement())
+  productId Int
+  product   Product     @relation(fields: [productId], references: [id])
+  cartId    Int
+  cart      Cart        @relation(fields: [cartId], references: [id])
+  quantity  Int
+  price     Float
+  status    OrderStatus
 
-  @@unique([cartId, productId]) // Ensuring no duplicate product entries in the same cart
+  @@unique([cartId, productId])
 }
 
 model Cart {
-  id     Int        @id @default(autoincrement())
-  cartItems  CartItem[] // 1-N
-  userId Int        @unique
-  user   User       @relation(fields: [userId], references: [id]) // 1-1
+  id        Int        @id @default(autoincrement())
+  cartItems CartItem[] // 1-N
+  userId    Int        @unique
+  user      User       @relation(fields: [userId], references: [id]) // 1-1
 }
 
 model Order {
@@ -154,16 +162,16 @@ model Order {
 }
 
 model OrderItem {
-  id         Int         @id @default(autoincrement())
-  productId  Int
-  product    Product     @relation(fields: [productId], references: [id]) // N-1
-  orderId    Int
-  order      Order       @relation(fields: [orderId], references: [id]) // N-1
-  quantity   Int
-  price      Float
-  status     OrderStatus
+  id        Int         @id @default(autoincrement())
+  productId Int
+  product   Product     @relation(fields: [productId], references: [id]) // N-1
+  orderId   Int
+  order     Order       @relation(fields: [orderId], references: [id]) // N-1
+  quantity  Int
+  price     Float
+  status    OrderStatus
 
-  @@unique([orderId, productId]) // Ensuring no duplicate product entries in the same order
+  @@unique([orderId, productId])
 }
 
 model Review {
@@ -175,6 +183,40 @@ model Review {
   userId    Int
   user      User     @relation(fields: [userId], references: [id]) // N-1
   createdAt DateTime @default(now())
+}
+
+model Comment {
+  id        Int      @id @default(autoincrement())
+  content   String
+  createdAt DateTime @default(now())
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id]) // N-1
+  productId Int?
+  product   Product? @relation(fields: [productId], references: [id]) // N-1
+  Like      Like[]
+}
+
+model Like {
+  id        Int        @id @default(autoincrement())
+  userId    Int
+  user      User      @relation(fields: [userId], references: [id]) // N-1
+  productId Int?
+  product   Product?    @relation(fields: [productId], references: [id]) // N-1
+  commentId Int?
+  comment   Comment?    @relation(fields: [commentId], references: [id]) // N-1
+  reaction  ReactionType
+  createdAt DateTime    @default(now())
+}
+
+model Follow {
+  id         Int      @id @default(autoincrement())
+  followerId Int
+  follower   User   @relation("follows", fields: [followerId], references: [id])
+  followedId Int
+  followed   User  @relation("followed", fields: [followedId], references: [id])
+  createdAt  DateTime @default(now())
+
+  @@unique([followerId, followedId])
 }
 
 model Notification {
